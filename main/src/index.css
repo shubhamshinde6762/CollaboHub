@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media (min-width: 990px) {
+  .resolution {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+.loginButton {
+  border: 0 solid;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0);
+  outline: 2px solid;
+  outline-color: rgba(230, 1, 255, 0.5);
+  outline-offset: 0px;
+  text-shadow: none;
+  transition: all 1100ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.loginButton:hover {
+  box-shadow: inset 0 0 10px rgba(230, 1, 255, 0.942),
+    0 0 20px rgba(212, 0, 255, 0.2);
+  outline-color: rgba(144, 0, 255, 0);
+  outline-offset: 15px;
+  text-shadow: 1px 1px 2px #427388;
+}
+
+.italic-text {
+  font-style: italic;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  max-width: 0px; /* Adjust the width as needed */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: whitesmoke;
+  z-index: 10;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: transparent; /* Make the scrollbar track transparent */
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+.btn {
+  cursor: pointer;
+  position: relative;
+  padding: 5px 5px;
+  /* background:white; */
+
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  transition: all 1s;
+  &:after,
+  &:before {
+    content: " ";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
+    transition: all 0.5s;
+  }
+  &:after {
+    top: -1px;
+    left: -1px;
+    border-top: 2px solid white;
+    border-left: 2px solid rgb(255, 254, 254);
+    border-color: transparent;
+  }
+  &:before {
+    bottom: -1px;
+    right: -1px;
+    border-bottom: 2px solid white;
+    border-right: 2px solid white;
+    border-color: transparent;
+  }
+  &:hover {
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
+
+    &:before,
+    &:after {
+      border-color: gold;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+@keyframes spinOnce {
+  0% {
+    scale: 140%;
+    transform: rotate(0deg);
+    transition: all;
+    transition-duration: 300ms;
+  }
+  100% {
+    scale: 140%;
+    transform: rotate(360deg);
+    transition: all;
+    transition-duration: 300ms;
+  }
+}
+
+@keyframes dropTop {
+  0% {
+    transform: translateY(-100%) scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%) scale(1);
+    opacity: 1;
+  }
+}
+
+.spin-once {
+  transition: transform 2s; /* Apply a smooth transition for a better visual effect */
+}
+
+/* Apply animation on hover using the .spin-once-hover class */
+.spin-once:hover .spin-once-hover {
+  animation: spinOnce 1s forwards;
+}
+
+/* Apply animation on unhover using the .spin-once-unhover class */
+.spin-once:not(:hover) .spin-once-unhover {
+  animation: spinOnceReverse 1s forwards;
+}
+
+.centered-toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spinOnce {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinOnceReverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes dropRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+.dropdown-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.7s ease-out;
+}
+
+.dropdown-content.active {
+  max-height: 45vh; /* Adjust the value according to your content */
+}
+
+.shadeEffect {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+#typing-text {
+  overflow: hidden;
+  white-space: pre-wrap;
+  margin: 0 auto;
+  padding: 10px;
+  font-size: 24px;
+  font-family: 'Courier New', Courier, monospace;
+  position: relative;
+}
+
+#typing-text::after {
+  content: '|';
+  display: inline-block;
+  animation: blink 2s infinite;
+  margin-left: 3px;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.gradient-text {
+  background-image: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(151,53,156,1) 92%, rgba(252,176,69,1) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  color: transparent;
+}
