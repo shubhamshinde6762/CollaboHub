@@ -1,10 +1,10 @@
 const user = require("../model/User/user");
 const connectedUser = require("../model/User/connectedUser");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { getIO } = require("../socket");
 const cloudinary = require("cloudinary").v2;
-
+ 
 exports.updateUser = async (req, res) => {
   try {
     const { userId, email, password, username } = req.body;
