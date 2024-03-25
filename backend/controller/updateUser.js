@@ -1,6 +1,6 @@
 const user = require("../model/User/user");
 const connectedUser = require("../model/User/connectedUser");
-const bcrypt = require("bcryptjs"); // Changed import to bcryptjs
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { getIO } = require("../socket");
 const cloudinary = require("cloudinary").v2;
@@ -52,7 +52,7 @@ exports.updateUser = async (req, res) => {
     let hashpw;
 
     try {
-      hashpw = await bcrypt.hash(password, 10); // Using bcryptjs for hashing
+      hashpw = await bcrypt.hash(password, 10);
     } catch (err) {
       res.status(500).json({
         error: "error in Hashing",

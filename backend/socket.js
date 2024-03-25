@@ -9,7 +9,7 @@ exports.initSocket = (app) => {
     const server = createServer(app);
     io = new Server(server, {
       cors: {
-        origin: "http://192.168.234.48:3000/",
+        origin: "http://localhost:3000",
       },
     });
 
@@ -30,14 +30,14 @@ exports.initSocket = (app) => {
             user.socketIds.push(socketId);
           }
         }
-          
+
         await user.save();
 
         io.to(socketId).emit("message", "Welcome Back!");
       });
 
       let disconnectTimeout;
-  
+
       socket.on("disconnect", async () => {
         clearTimeout(disconnectTimeout);
         // console.log(12345)
@@ -46,7 +46,7 @@ exports.initSocket = (app) => {
           const user = await connectedUser.findOne({
             socketIds: { $in: [socket.id] },
           });
-   
+
           if (user) {
             user.socketIds = user.socketIds.filter((id) => id !== socket.id);
 

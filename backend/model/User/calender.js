@@ -3,10 +3,10 @@ const mongoose = require("mongoose");
 const calender = new mongoose.Schema({
     userId:{
         type:String,
-        required:true, 
+        required:true,
     },
- 
-    socketIds:{    
+
+    socketIds:{ 
         type:[String],
     }
 })
