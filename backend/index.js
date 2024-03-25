@@ -45,8 +45,8 @@ app.get("/about", (req, res) => {
 dbConnect();
 cdnConnect();
 
-// app.get("/", (req, res) => res.send("Express on Vercel"));
+app.get("/", (req, res) => res.send("Express on Vercel"));
 
-// const { server, io } = initSocket(app);
-app.listen(process.env.PORT, () => console.log("Server Started"));
+const { server, io } = initSocket(app);
+server.listen(process.env.PORT, () => console.log("Server Started"));
 // module.exports.server = server;
