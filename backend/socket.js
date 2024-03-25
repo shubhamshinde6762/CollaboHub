@@ -7,7 +7,11 @@ let io = null;
 exports.initSocket = (app) => {
   try {
     const server = createServer(app);
-    io = new Server(server);
+    io = new Server(server, {
+      cors: {
+        origin: "https://collabo-hub-qwzu.vercel.app/",
+      },
+    });
 
     io.on("connection", (socket) => {
       socket.on("login", async (data) => {
