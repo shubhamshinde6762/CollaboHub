@@ -9,7 +9,7 @@ exports.initSocket = (app) => {
     const server = createServer(app);
     io = new Server(server, {
       cors: {
-        origin: "http://localhost:3000",
+        origin: "http://192.168.234.48:3000",
       },
     });
 
