@@ -18,7 +18,7 @@ const Sock = ({
       try {
         const token = localStorage.getItem("token");
         console.log(token);
-        const response = await axios.get("https://collabo-hub-ten.vercel.app/api/v1/login", {
+        const response = await axios.get("http://13.236.1.19:5000/api/v1/login", {
           headers: {
             Authorization: `${token}`,
           },

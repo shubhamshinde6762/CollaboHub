@@ -37,7 +37,7 @@ const SearchCard = ({ user, searchuser, projectDetails }) => {
       console.log(role);
       if (roleUpdated) {
         await axios.post(
-          "https://collabo-hub-ten.vercel.app/api/v1/updateRole",
+          "http://13.236.1.19:5000/api/v1/updateRole",
           { searchUserId, projectId, role, user, searchuser }
         );
         setInitialRole(role);

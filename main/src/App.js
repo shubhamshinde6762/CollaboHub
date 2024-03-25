@@ -23,7 +23,7 @@ import NavbarProfile from "./components/GeneralPurposeComponents/NavbarProfile";
 import ActionButton from "./components/GeneralPurposeComponents/ActionButton";
 
 import io from "socket.io-client";
-const socket = io("https://collabo-hub-ten.vercel.app");
+const socket = io("http://13.236.1.19:5000/");
 
 function App() {
   const [user, setUser] = useState("");

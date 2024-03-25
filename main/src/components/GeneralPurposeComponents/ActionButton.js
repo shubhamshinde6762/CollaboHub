@@ -60,7 +60,7 @@ const ActionButton = ({ user, updateStatus, isOpen, setIsOpen }) => {
     try {
       console.log(user);
       const response = await axios.post(
-        "https://collabo-hub-ten.vercel.app/api/v1/getProjects",
+        "http://13.236.1.19:5000/api/v1/getProjects",
         {
           email: user.data.email,
         }
@@ -107,7 +107,7 @@ const ActionButton = ({ user, updateStatus, isOpen, setIsOpen }) => {
 
     try {
       const response = await axios.post(
-        "https://collabo-hub-ten.vercel.app/api/v1/createProject",
+        "http://13.236.1.19:5000/api/v1/createProject",
         {
           projectName: projectName,
           email: user.data.email,
