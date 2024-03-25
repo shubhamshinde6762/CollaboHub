@@ -7,11 +7,7 @@ let io = null;
 exports.initSocket = (app) => {
   try {
     const server = createServer(app);
-    io = new Server(server, {
-      cors: {
-        origin: "http://localhost:3000",
-      },
-    });
+    io = new Server(server);
 
     io.on("connection", (socket) => {
       socket.on("login", async (data) => {
