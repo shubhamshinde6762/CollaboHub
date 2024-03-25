@@ -7,7 +7,7 @@ const InviteRow = (props) => {
     
     const acceptHandler = async() => {
         try {
-            const response = await axios.post("http://localhost:5000/api/v1/acceptInvite", {
+            const response = await axios.post("https://collabo-hub-ten.vercel.app/api/v1/acceptInvite", {
               "email": props.user.data.email,
               "projectId":props.data["_id"],
             });
@@ -28,7 +28,7 @@ const InviteRow = (props) => {
     }
     const rejectHandler = async() => {
         try {
-            const response = await axios.post("http://localhost:5000/api/v1/rejectInvite", {
+            const response = await axios.post("https://collabo-hub-ten.vercel.app/api/v1/rejectInvite", {
               "email": props.user.data.email,
               "projectId":props.data["_id"],
             });

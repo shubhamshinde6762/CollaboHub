@@ -15,7 +15,7 @@ const Notification = (props) => {
     try {
       console.log(props.user.data.email);
       const response = await axios.post(
-        "http://localhost:5000/api/v1/getInvitedProjects",
+        "https://collabo-hub-ten.vercel.app/api/v1/getInvitedProjects",
         {
           email: props.user.data.email,
         }

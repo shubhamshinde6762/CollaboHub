@@ -32,7 +32,7 @@ const HomeDashBoard = ({ user, isUpdate }) => {
     const fetch = async () => {
       try {
         let response = await axios.post(
-          "http://localhost:5000/api/v1/fetchTask",
+          "https://collabo-hub-ten.vercel.app/api/v1/fetchTask",
           {
             tasks: taskIdArray,
           }
@@ -78,7 +78,7 @@ const HomeDashBoard = ({ user, isUpdate }) => {
     const fetchProject = async () => {
       try {
         const response1 = await axios.post(
-          "http://localhost:5000/api/v1/fetchProject",
+          "https://collabo-hub-ten.vercel.app/api/v1/fetchProject",
           { projectArray: projectIdArray }
         );
         console.log("its response", response1);

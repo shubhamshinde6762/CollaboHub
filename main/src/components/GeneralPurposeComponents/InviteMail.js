@@ -33,7 +33,7 @@ const InviteMail = ({ user, userDetails, inviteText, setInviteText, isOpen }) =>
     event.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/v1/invite",
+        "https://collabo-hub-ten.vercel.app/api/v1/invite",
         {
           email: inviteText,
           projectId,

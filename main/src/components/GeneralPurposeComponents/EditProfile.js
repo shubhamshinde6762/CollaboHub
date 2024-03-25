@@ -94,7 +94,7 @@ const EditProfile = ({ user, editProfile, setEditProfile }) => {
         let response = null;
         toast.promise(
           (axios.post(
-            "http://localhost:5000/api/v1/updateUser",
+            "https://collabo-hub-ten.vercel.app/api/v1/updateUser",
             formData,
             {
               headers: {
