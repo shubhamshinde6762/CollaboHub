@@ -28,15 +28,15 @@ app.use(
 );
 app.use(cors());
 
-// app.use("/api/v1", fetchChatData);
-// app.use("/api/v1", sendMessage);
-// app.use("/api/v1", authentication);
-// app.use("/api/v1", editProject);
-// app.use("/api/v1", fetchProject);
-// app.use("/api/v1", invite);
-// app.use("/api/v1", taskHandler);
-// app.use("/api/v1",updateUser);
-// app.use("/api/v1",note);
+app.use("/api/v1", fetchChatData);
+app.use("/api/v1", sendMessage);
+app.use("/api/v1", authentication);
+app.use("/api/v1", editProject);
+app.use("/api/v1", fetchProject);
+app.use("/api/v1", invite);
+app.use("/api/v1", taskHandler);
+app.use("/api/v1",updateUser);
+app.use("/api/v1",note);
 
 app.get("/about", (req, res) => {
   res.send("About route 🎉 ");
