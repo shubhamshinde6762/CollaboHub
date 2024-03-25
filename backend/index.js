@@ -5,7 +5,7 @@ const { dbConnect } = require("./db/db.js");
 const { cdnConnect } = require("./db/cdn.js");
 const { initSocket } = require("./socket.js");
 
-// const fetchChatData = require("./routes/ChatHandler/fetchChatData.js");
+const fetchChatData = require("./routes/ChatHandler/fetchChatData.js");
 const sendMessage = require("./routes/ChatHandler/sendMessage.js");
 
 const editProject = require("./routes/ProjectFunctions/editProject.js");
