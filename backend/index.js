@@ -41,6 +41,8 @@ app.use("/api/v1",note);
 dbConnect(); 
 cdnConnect();
 
+app.get("/", (req, res) => res.send("Express on Vercel"));
+
 const {server, io} = initSocket(app);
 server.listen(process.env.PORT, () => console.log("Server Started"));
 module.exports.io = io;
