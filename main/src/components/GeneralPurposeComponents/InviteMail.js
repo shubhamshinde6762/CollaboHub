@@ -33,7 +33,7 @@ const InviteMail = ({ user, userDetails, inviteText, setInviteText, isOpen }) =>
     event.preventDefault();
     try {
       const response = await axios.post(
-        "http://13.210.25.126:5000/api/v1/invite",
+        "http://192.168.234.48:5000/api/v1/invite",
         {
           email: inviteText,
           projectId,

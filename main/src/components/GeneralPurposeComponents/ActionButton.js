@@ -60,7 +60,7 @@ const ActionButton = ({ user, updateStatus, isOpen, setIsOpen }) => {
     try {
       console.log(user);
       const response = await axios.post(
-        "http://13.210.25.126:5000/api/v1/getProjects",
+        "http://192.168.234.48:5000/api/v1/getProjects",
         {
           email: user.data.email,
         }
@@ -107,7 +107,7 @@ const ActionButton = ({ user, updateStatus, isOpen, setIsOpen }) => {
 
     try {
       const response = await axios.post(
-        "http://13.210.25.126:5000/api/v1/createProject",
+        "http://192.168.234.48:5000/api/v1/createProject",
         {
           projectName: projectName,
           email: user.data.email,

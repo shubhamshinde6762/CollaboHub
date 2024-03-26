@@ -40,7 +40,7 @@ const Project = (props) => {
         exp: 0,
       });
       const response1 = await axios.post(
-        "http://13.210.25.126:5000/api/v1/fetchProject",
+        "http://192.168.234.48:5000/api/v1/fetchProject",
         { projectArray: [projectId] }
       );
 
@@ -52,7 +52,7 @@ const Project = (props) => {
   const fetch = async () => {
     try {
       const response = await axios.post(
-        "http://13.210.25.126:5000/api/v1/fetchTask",
+        "http://192.168.234.48:5000/api/v1/fetchTask",
         {
           tasks: projectDetails.data.data[0].contributorsIds.find(
             (ele) => ele._id === props.user.data._id
@@ -167,7 +167,7 @@ const Project = (props) => {
             userArray.push(contributors._id);
         }
         const response1 = await axios.post(
-          "http://13.210.25.126:5000/api/v1/fetchUser",
+          "http://192.168.234.48:5000/api/v1/fetchUser",
           { userArray }
         );
         setUserDetails(response1);

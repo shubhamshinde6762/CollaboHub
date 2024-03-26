@@ -18,7 +18,7 @@ const Sock = ({
       try {
         const token = localStorage.getItem("token");
         console.log(token);
-        const response = await axios.get("http://13.210.25.126:5000/api/v1/login", {
+        const response = await axios.get("http://192.168.234.48:5000/api/v1/login", {
           headers: {
             Authorization: `${token}`,
           },

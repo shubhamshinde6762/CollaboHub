@@ -37,7 +37,7 @@ const SearchCard = ({ user, searchuser, projectDetails }) => {
       console.log(role);
       if (roleUpdated) {
         await axios.post(
-          "http://13.210.25.126:5000/api/v1/updateRole",
+          "http://192.168.234.48:5000/api/v1/updateRole",
           { searchUserId, projectId, role, user, searchuser }
         );
         setInitialRole(role);
