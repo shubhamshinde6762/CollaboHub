@@ -113,7 +113,7 @@ const EditTaskForm = ({
   const editHandler = async(event) => {
     event.preventDefault();
     try{
-      const response = await axios.post("http://13.236.1.19:5000/api/v1/editTask",
+      const response = await axios.post("http://13.210.25.126::5000/api/v1/editTask",
       {
         email : user.data.email,
         taskName : taskForm.taskName,

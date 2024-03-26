@@ -15,7 +15,7 @@ export default function Tabular({ projectDetails,projectId, socket,  user, userD
   const fetch = async () => {
     try {
       const response = await axios.post(
-        "http://13.236.1.19:5000/api/v1/fetchTask",
+        "http://13.210.25.126::5000/api/v1/fetchTask",
         {
           tasks: projectDetails.data.data[0].contributorsIds.find(
             (ele) => ele._id === user.data._id
@@ -230,7 +230,7 @@ export default function Tabular({ projectDetails,projectId, socket,  user, userD
         destination.droppableId === "2"
       ) {
         const response = await axios.post(
-          "http://13.236.1.19:5000/api/v1/completeTask",
+          "http://13.210.25.126::5000/api/v1/completeTask",
           {
             _id: draggableId,
             currentUserId: user.data._id,

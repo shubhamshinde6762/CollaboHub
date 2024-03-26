@@ -15,7 +15,7 @@ const Notification = (props) => {
     try {
       console.log(props.user.data.email);
       const response = await axios.post(
-        "http://13.236.1.19:5000/api/v1/getInvitedProjects",
+        "http://13.210.25.126::5000/api/v1/getInvitedProjects",
         {
           email: props.user.data.email,
         }

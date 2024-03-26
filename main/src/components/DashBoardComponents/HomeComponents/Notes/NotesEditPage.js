@@ -29,7 +29,7 @@ const NotesEditPage = ({
   const deleteHandler = async () => {
     try {
       const response = await axios.post(
-        "http://13.236.1.19:5000/api/v1/deletenote",
+        "http://13.210.25.126::5000/api/v1/deletenote",
         {
           _id: currentNote._id,
           userId: user.data._id,
@@ -51,7 +51,7 @@ const NotesEditPage = ({
   const submitHandler = async () => {
     if (isNew) {
       const response = await axios.post(
-        "http://13.236.1.19:5000/api/v1/createnote",
+        "http://13.210.25.126::5000/api/v1/createnote",
         {
           userId: user.data._id,
           title: notesEditForm.title,
@@ -64,7 +64,7 @@ const NotesEditPage = ({
       }
     } else if (!isNew) {
       const response = await axios.post(
-        "http://13.236.1.19:5000/api/v1/editnote",
+        "http://13.210.25.126::5000/api/v1/editnote",
         {
           userId: user.data._id,
           title: notesEditForm.title,

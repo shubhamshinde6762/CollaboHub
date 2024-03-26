@@ -33,7 +33,7 @@ const DeleteProject = ({ projectId, user }) => {
   const deleteProject = async () => {
     try {
       const response = await axios.post(
-        "http://13.236.1.19:5000/api/v1/deleteProject",
+        "http://13.210.25.126::5000/api/v1/deleteProject",
         { projectId }
       );
       navigate(`/dashboard/${user.data.username}/`);

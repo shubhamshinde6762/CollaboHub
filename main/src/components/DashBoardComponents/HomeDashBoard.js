@@ -32,7 +32,7 @@ const HomeDashBoard = ({ user, isUpdate }) => {
     const fetch = async () => {
       try {
         let response = await axios.post(
-          "http://13.236.1.19:5000/api/v1/fetchTask",
+          "http://13.210.25.126::5000/api/v1/fetchTask",
           {
             tasks: taskIdArray,
           }
@@ -78,7 +78,7 @@ const HomeDashBoard = ({ user, isUpdate }) => {
     const fetchProject = async () => {
       try {
         const response1 = await axios.post(
-          "http://13.236.1.19:5000/api/v1/fetchProject",
+          "http://13.210.25.126::5000/api/v1/fetchProject",
           { projectArray: projectIdArray }
         );
         console.log("its response", response1);
