@@ -28,7 +28,7 @@ const Search = ({ user, userDetails, inviteText, setInviteText, setInviteMode, i
         event.preventDefault();
         try {
             const response = await axios.post(
-                "http://13.210.25.126::5000/api/v1/invite",
+                "http://13.210.25.126:5000/api/v1/invite",
                 {
                     email: inviteText,
                     projectId,

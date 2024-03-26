@@ -32,7 +32,7 @@ const Attachments = (props) => {
 
       await toast.promise(
         axios
-          .post("http://13.210.25.126::5000/api/v1/uploadMedia", formData, {
+          .post("http://13.210.25.126:5000/api/v1/uploadMedia", formData, {
             headers: {
               "Content-Type": "multipart/form-data",
             },

@@ -18,7 +18,7 @@ const LoginDiv = ({ setUser, setLogin, socket }) => {
   const fetchData = async () => {
     try {
       const response = await axios.post(
-        "http://13.210.25.126::5000/api/v1/login",
+        "http://13.210.25.126:5000/api/v1/login",
         formdata
       );
 

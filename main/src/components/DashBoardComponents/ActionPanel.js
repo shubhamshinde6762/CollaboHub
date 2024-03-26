@@ -41,7 +41,7 @@ const ActionPanel = (props) => {
     try {
       console.log(props.user);
       const response = await axios.post(
-        "http://13.210.25.126::5000/api/v1/getProjects",
+        "http://13.210.25.126:5000/api/v1/getProjects",
         {
           email: props.user.data.email,
         }
@@ -88,7 +88,7 @@ const ActionPanel = (props) => {
 
     try {
       const response = await axios.post(
-        "http://13.210.25.126::5000/api/v1/createProject",
+        "http://13.210.25.126:5000/api/v1/createProject",
         {
           projectName: projectName,
           email: props.user.data.email,

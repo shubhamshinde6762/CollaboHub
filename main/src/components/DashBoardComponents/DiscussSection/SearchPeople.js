@@ -30,7 +30,7 @@ const SearchPeople = ({
         });
 
         const fetchAllProjects = await axios.post(
-          "http://13.210.25.126::5000/api/v1/fetchProject",
+          "http://13.210.25.126:5000/api/v1/fetchProject",
           { projectArray: user.data.projectIds }
         );
 
@@ -47,7 +47,7 @@ const SearchPeople = ({
         console.log("inPersons", personInChat, userArray);
 
         const response = await axios.post(
-          "http://13.210.25.126::5000/api/v1/fetchUser",
+          "http://13.210.25.126:5000/api/v1/fetchUser",
           { userArray: Array.from(userArray) }
         );
 
@@ -64,7 +64,7 @@ const SearchPeople = ({
     const fetch = async () => {
       try {
         const latestUserData = await axios.post(
-          "http://13.210.25.126::5000/api/v1/fetchUser",
+          "http://13.210.25.126:5000/api/v1/fetchUser",
           {
             userArray: [user.data._id],
           }
@@ -77,7 +77,7 @@ const SearchPeople = ({
           ...latestUserData.data.data[0].chatPerson,
         ];
         let response = await axios.post(
-          "http://13.210.25.126::5000/api/v1/fetchChat",
+          "http://13.210.25.126:5000/api/v1/fetchChat",
           {
             chatId,
             userId: user.data._id,
