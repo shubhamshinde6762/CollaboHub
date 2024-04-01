@@ -41,7 +41,7 @@ const ActionPanel = (props) => {
     try {
       console.log(props.user);
       const response = await axios.post(
-        "https://192.168.234.48:5000/api/v1/getProjects",
+        "https://collabo-hub-ten.vercel.app/api/v1/getProjects",
         {
           email: props.user.data.email,
         }
