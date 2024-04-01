@@ -3,7 +3,7 @@ const cors = require("cors");
 const expressFileUploader = require("express-fileupload");
 const { dbConnect } = require("./db/db.js");
 const { cdnConnect } = require("./db/cdn.js")
-// const {initSocket} = require("./socket.js")
+const {initSocket} = require("./socket.js")
 
 const fetchChatData = require("./routes/ChatHandler/fetchChatData.js")
 const sendMessage = require("./routes/ChatHandler/sendMessage.js")
@@ -28,7 +28,6 @@ app.use(expressFileUploader({
 app.use(cors());
 
 
-
 app.use("/api/v1", fetchChatData);
 app.use("/api/v1", sendMessage);
 app.use("/api/v1", authentication);
@@ -39,13 +38,9 @@ app.use("/api/v1", taskHandler);
 app.use("/api/v1",updateUser);
 app.use("/api/v1",note);
 
-app.get("/", (req, res) => {
-    res.send("Express on Vercel");
-  });
-
 dbConnect(); 
 cdnConnect();
 
-// const {server, io} = initSocket(app);
-app.listen(process.env.PORT, () => console.log("Server Started"));
-module.exports = app;
+const {server, io} = initSocket(app);
+server.listen(process.env.PORT, () => console.log("Server Started"));
+module.exports = server;
