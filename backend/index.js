@@ -39,9 +39,13 @@ app.use("/api/v1", taskHandler);
 app.use("/api/v1",updateUser);
 app.use("/api/v1",note);
 
+app.get("/", (req, res) => {
+    res.send("Express on Vercel");
+  });
+
 dbConnect(); 
 cdnConnect();
 
 const {server, io} = initSocket(app);
 server.listen(process.env.PORT, () => console.log("Server Started"));
-module.exports.server = server;
+module.exports = server;
