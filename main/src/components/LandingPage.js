@@ -62,7 +62,7 @@ const LandingPage = () => {
           <img src={"https://res.cloudinary.com/dd6sontgf/image/upload/v1711955137/commu_jqyped.png"} className="max-w-[500px] min-w-[260px] w-[30%]" ref={refCommu} />
         </div>
       </div>
-      <div className="w-screen bg-gradient-to-b from-violet-500 -z-10 gap-10 to-indigo-500 flex justify-center p-[5%] gap-[5%] items-center flex-wrap relative overflow-x-hidden">
+      <div className="w-screen bg-gradient-to-b from-violet-500 -z-10 gap-10 to-indigo-500 flex justify-center p-[5%]  items-center flex-wrap relative overflow-x-hidden">
         <div className="flex flex-col min-w-[260px] flex-grow w-[45%] justify-center gap-10 items-center">
           <motion.img
             ref={refDND}
