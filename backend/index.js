@@ -44,4 +44,4 @@ cdnConnect();
 
 const {server, io} = initSocket(app);
 server.listen(process.env.PORT, () => console.log("Server Started"));
-module.exports.io = io;
+module.exports.server = server;
