@@ -46,6 +46,6 @@ app.get("/", (req, res) => {
 dbConnect(); 
 cdnConnect();
 
-const {server, io} = initSocket(app);
-server.listen(process.env.PORT, () => console.log("Server Started"));
-module.exports = server;
+// const {server, io} = initSocket(app);
+app.listen(process.env.PORT, () => console.log("Server Started"));
+module.exports = app;
