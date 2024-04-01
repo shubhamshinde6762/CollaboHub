@@ -27,6 +27,10 @@ app.use(expressFileUploader({
 }));
 app.use(cors());
 
+app.get("/", (req, res) => {
+    res.send("welcome to api");
+  });
+
 
 app.use("/api/v1", fetchChatData);
 app.use("/api/v1", sendMessage);
