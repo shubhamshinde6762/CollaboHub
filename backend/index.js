@@ -3,7 +3,7 @@ const cors = require("cors");
 const expressFileUploader = require("express-fileupload");
 const { dbConnect } = require("./db/db.js");
 const { cdnConnect } = require("./db/cdn.js")
-const {initSocket} = require("./socket.js")
+// const {initSocket} = require("./socket.js")
 
 const fetchChatData = require("./routes/ChatHandler/fetchChatData.js")
 const sendMessage = require("./routes/ChatHandler/sendMessage.js")
@@ -41,6 +41,6 @@ app.use("/api/v1",note);
 dbConnect(); 
 cdnConnect();
 
-const {server, io} = initSocket(app);
-server.listen(process.env.PORT, () => console.log("Server Started"));
-module.exports = server;
+// const {server, io} = initSocket(app);
+app.listen(process.env.PORT, () => console.log("Server Started"));
+module.exports = app;
