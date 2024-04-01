@@ -100,11 +100,11 @@ const LoginDiv = ({ setUser, setLogin, socket }) => {
   }, [formdata]);
 
   return (
-    <div className="flex bg-amber-500 items-center justify-center w-full h-full select-none cursor-default">
+    <div className="flex from-amber-500 to-orange-500 bg-gradient-to-b items-center justify-center w-full h-full select-none cursor-default">
       {/* Image Section */}
 
-      <div className=" flex w-full bg-amber-500  gap-y-4 justify-center h-full items-center flex-wrap">
-        <div className="text-white px-4 font-bold flex-grow items-center justify-center bg-indigo-500 h-full group flex flex-col transition-all duration-200 ">
+      <div className=" flex w-full from-amber-500 to-orange-500 bg-gradient-to-b  gap-y-4 justify-center h-full items-center flex-wrap">
+        <div className="text-white px-4 font-bold flex-grow items-center justify-center from-indigo-500 to-purple-500 bg-gradient-to-br h-full group flex flex-col transition-all duration-200 ">
           <div className="flex flex-col">
             <p className="text-5xl xs:text-4xl font-roboto-slab leading-relaxed">
               Welcome to <br />{" "}
@@ -139,7 +139,7 @@ const LoginDiv = ({ setUser, setLogin, socket }) => {
         </div>
 
         {/* <div className='px-10'> */}
-        <div className=" text-white bg-amber-500 rounded-xl py-4 max-w-[400px]  w-full min-w-[30%] p-2 group flex flex-col items-center    transition-all duration-200 ">
+        <div className=" text-white bg-amber-500 border-amber-400 border-4 rounded-xl py-4 max-w-[400px]  w-full min-w-[30%] p-2 group flex flex-col items-center    transition-all duration-200 ">
           <div className="text-5xl xs:text-3xl font-poppins  text-white font-bold group-hover:scale-110  transitiom-all duration-1000 text-bold text-center">
             Login
           </div>

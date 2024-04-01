@@ -27,7 +27,7 @@ const Intro = () => {
 
   return (
     <div
-      className={`fixed z-50 left-0 top-0 w-screen h-screen bg-purple-200 transition-opacity duration-1000 flex justify-center items-center ${
+      className={`fixed z-50 left-0 top-0 w-screen h-screen bg-gradient-to-br from-purple-300 to-violet-400 transition-opacity duration-1000 flex justify-center items-center ${
         animationFinished ? "opacity-0" : " opacity-100"
       }
         ${animationFinished3 ? "" : "hidden"}`}

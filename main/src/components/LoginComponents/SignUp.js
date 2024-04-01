@@ -269,7 +269,7 @@ const SignUp = ({ setLogin, setUser, socket }) => {
           </div>
         </div>
 
-        <div className="text-white  px-4 font-bold flex-grow items-center justify-center bg-indigo-500 h-full group flex flex-col transition-all duration-200 ">
+        <div className="text-white  px-4 font-bold flex-grow items-center justify-center from-indigo-500 to-purple-500 bg-gradient-to-bl   h-full group flex flex-col transition-all duration-200 ">
           <div className="flex flex-col ">
             <p className="text-5xl xs:text-4xl font-roboto-slab leading-relaxed">
               Welcome to <br />{" "}
