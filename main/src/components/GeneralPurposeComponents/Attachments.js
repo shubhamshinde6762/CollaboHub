@@ -32,7 +32,7 @@ const Attachments = (props) => {
 
       await toast.promise(
         axios
-          .post("http://192.168.234.48:5000/api/v1/uploadMedia", formData, {
+          .post("https://collabo-hub-ten.vercel.app/api/v1/uploadMedia", formData, {
             headers: {
               "Content-Type": "multipart/form-data",
             },

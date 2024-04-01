@@ -15,7 +15,7 @@ const NotesHomePage = ({ user }) => {
         // console.log(user , 123 )
         let unsortednotes = [];
         const response = await axios.post(
-          "http://192.168.234.48:5000/api/v1/fetchnote",
+          "https://collabo-hub-ten.vercel.app/api/v1/fetchnote",
           {
             notesArray: user.data.notes,
           }

@@ -28,7 +28,7 @@ const Search = ({ user, userDetails, inviteText, setInviteText, setInviteMode, i
         event.preventDefault();
         try {
             const response = await axios.post(
-                "http://192.168.234.48:5000/api/v1/invite",
+                "https://collabo-hub-ten.vercel.app/api/v1/invite",
                 {
                     email: inviteText,
                     projectId,

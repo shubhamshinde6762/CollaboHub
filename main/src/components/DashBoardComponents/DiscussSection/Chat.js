@@ -30,7 +30,7 @@ const Chat = ({ user, chat, newMessage, setChatSection }) => {
     const fetchMessages = async () => {
       try {
         const response = await axios.post(
-          "http://192.168.234.48:5000/api/v1/fetchMessages",
+          "https://collabo-hub-ten.vercel.app/api/v1/fetchMessages",
           {
             userId: user.data._id,
             chatId: chat._id,
@@ -142,7 +142,7 @@ const Chat = ({ user, chat, newMessage, setChatSection }) => {
       let person2 = null;
       if (!chat._id) person2 = chat.user;
       const response = await axios.post(
-        "http://192.168.234.48:5000/api/v1/sendMessage",
+        "https://collabo-hub-ten.vercel.app/api/v1/sendMessage",
         {
           textMessage,
           chatId: chat._id,

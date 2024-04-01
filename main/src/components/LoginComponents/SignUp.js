@@ -17,7 +17,7 @@ const SignUp = ({ setLogin, setUser, socket }) => {
   const fetchData = async () => {
     try {
       const response = await axios.post(
-        "http://192.168.234.48:5000/api/v1/signUp",
+        "https://collabo-hub-ten.vercel.app/api/v1/signUp",
         formdata
       );
 

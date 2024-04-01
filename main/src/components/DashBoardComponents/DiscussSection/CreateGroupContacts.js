@@ -19,7 +19,7 @@ const CreateGroupContacts = ({ user, setCreateGroup }) => {
         let userArray = new Set();
 
         const fetchAllProjects = await axios.post(
-          "http://192.168.234.48:5000/api/v1/fetchProject",
+          "https://collabo-hub-ten.vercel.app/api/v1/fetchProject",
           { projectArray: user.data.projectIds }
         );
 
@@ -32,7 +32,7 @@ const CreateGroupContacts = ({ user, setCreateGroup }) => {
         userArray.delete(user.data._id);
 
         const response = await axios.post(
-          "http://192.168.234.48:5000/api/v1/fetchUser",
+          "https://collabo-hub-ten.vercel.app/api/v1/fetchUser",
           { userArray: Array.from(userArray) }
         );
 
