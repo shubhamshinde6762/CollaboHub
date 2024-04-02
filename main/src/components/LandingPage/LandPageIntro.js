@@ -5,17 +5,17 @@ import { motion } from "framer-motion";
 
 const LandPageIntro = () => {
   return (
-    <div className="flex select-none relative overflow-x-hidden flex-wrap-reverse w-full min-h-screen items-center justify-center">
+    <div className="flex select-none relative z-0 overflow-x-hidden bg-purple-600 flex-wrap-reverse w-full min-h-screen items-center justify-center">
       <motion.img
         src={
           "https://res.cloudinary.com/dd6sontgf/image/upload/v1711956456/blue-border-abstract-gradient-background_ve6zwh.jpg"
         }
-        className="absolute top-0 left-0 w-screen h-screen -z-10 rotate-180"
+        className="absolute top-0 left-0 w-screen h-screen -z-10 "
         initial={{ opacity: 0, scale: 1.5 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1 }}
       />
-      <div className="min-w-[250px] max-w-[700px] py-[4vh] rounded-3xl max-h-full items-center justify-center">
+      <div className="min-w-[250px] max-w-[700px] z-10 py-[4vh] rounded-3xl max-h-full items-center justify-center">
         <motion.img
           className="aspect-auto bg-slate-700 bg-opacity-20 mx-4 rounded-3xl bg-blend-soft-light w-full"
           src="https://res.cloudinary.com/dd6sontgf/image/upload/f_auto,q_auto/nlmfo7ufm5b8ftqsmbqt"
@@ -25,7 +25,7 @@ const LandPageIntro = () => {
         />
       </div>
       <motion.div
-        className="bg-gradient-to-t from-purple-600 to-purple-500 min-w-[250px] py-[12vh] flex flex-col justify-center items-center px-[4vw] w-[50%] h-screen flex-grow"
+        className="bg-gradient-to-t from-purple-600 z-20 to-purple-500 min-w-[250px] py-[12vh] flex flex-col justify-center items-center px-[4vw] w-[50%] h-screen flex-grow"
         initial={{ opacity: 0, x: 100 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1 }}

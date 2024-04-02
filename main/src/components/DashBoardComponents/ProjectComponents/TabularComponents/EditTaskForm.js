@@ -165,7 +165,7 @@ const EditTaskForm = ({
       <div className="bg-black h-screen w-full z-10 fixed top-0 left-0 opacity-70 "></div>
       <div className="fixed z-20 top-0 bottom-0 right-0 left-0 m-5 flex justify-center items-center">
         <div
-          style={{ animation: "dropTop 2s " }}
+          style={{ animation: "dropTop 0.8s " }}
           className="bg-white  text-black select-none h-fit w-96  rounded-md max-w-96   shadow-md shadow-white"
         >
           <div className="p-2 z-20 ">

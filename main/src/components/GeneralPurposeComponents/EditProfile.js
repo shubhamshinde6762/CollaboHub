@@ -93,31 +93,33 @@ const EditProfile = ({ user, editProfile, setEditProfile }) => {
 
         let response = null;
         toast.promise(
-          (axios.post(
-            "https://collabo-hub-ten.vercel.app/api/v1/updateUser",
-            formData,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-            }
-          )).then((res) => {
-            response = res
-            console.log("Image uploaded successfully:", response.data);
-          })
-          .catch((error) => {
-            console.error("Error uploading image:", error);
-          }),
+          axios
+            .post(
+              "https://collabo-hub-ten.vercel.app/api/v1/updateUser",
+              formData,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                },
+              }
+            )
+            .then((res) => {
+              response = res;
+              console.log("Image uploaded successfully:", response.data);
+            })
+            .catch((error) => {
+              console.error("Error uploading image:", error);
+            }),
           {
             loading: "Sending Media...",
             success: () => {
               localStorage.setItem("token", response.data.data.token);
-              console.log(response)
-              return (<b>Media Sent!</b>);
+              console.log(response);
+              return <b>Media Sent!</b>;
             },
             error: (error) => {
               console.error(error);
-              return (<b>Error while Sending.</b>);
+              return <b>Error while Sending.</b>;
             },
           }
         );
@@ -162,154 +164,156 @@ const EditProfile = ({ user, editProfile, setEditProfile }) => {
   }, [editData]);
 
   return (
-    <div
-      style={{ animation: "dropTop 2s " }}
-      className="flex z-50 relative min-w-32  flex-col justify-center items-center font-poppins text-black rounded-xl bg-white p-2 select-none shadow-gray-300 shadow-lg transition-all duration-1000"
-    >
-      <div onClick={cancelForm}>
-        <ImCross className="absolute -right-2 -top-2 bg-red-600 p-2 scale-125 text-3xl transition-all duration-200 rounded-full hover:scale-150 text-white" />
-      </div>
-
-      <div className="flex flex-wrap justify-center items-center gap-x-3 m-3">
-        <div className="relative">
-          <img
-            width="500px"
-            id="profileImage"
-            src={data.profilePhoto}
-            className="min-w-8 max-w-64 aspect-square rounded-full"
-          />
-          <label htmlFor="fileInput">
-            <MdEdit className="absolute right-8 bg-black text-white rounded-full p-1 text-2xl top-56 scale-150" />
-          </label>
-          <input
-            id="fileInput"
-            type="file"
-            style={{ display: "none" }}
-            onChange={handleFileInputChange}
-          />
-          {showConfirmation && (
-            <div className="flex gap-x-2 mt-3 justify-center">
-              <button
-                className="px-4 py-2 hover:scale-110 transition-all duration-300 outline-slate-950 bg-green-500 text-white rounded hover:bg-green-600"
-                onClick={confirmImage}
-              >
-                Confirm
-              </button>
-              <button
-                className="px-4 py-2 hover:scale-110 transition-all duration-300 bg-red-500 text-white rounded hover:bg-red-600"
-                onClick={cancelImage}
-              >
-                Cancel
-              </button>
-            </div>
-          )}
-        </div>
-        <div>
-          <form className="flex relative flex-col gap-y-4 my-3 justify-center text-lg  outline-none font-poppins max-w-60 ">
-            <label className="w-full">
-              <span>UserName</span>
-              <input
-                type="text"
-                onChange={changeHandler}
-                placeholder=""
-                value={editData["username"]}
-                name="username"
-                className="border rounded-md py-1 px-2 min-w-0 max-w-full shadow shadow-gray-400"
-              />
-            </label>
-            <label>
-              <span className="mt-3">Email</span>
-              <input
-                type="email"
-                placeholder=""
-                value={editData["email"]}
-                name="email"
-                className="border bg-gray-300 select-none rounded-md py-1 px-2 min-w-0 max-w-full"
-              />
-            </label>
-
-            <label className="relative">
-              <span>Old Password</span>
-              <input
-                type={showPassword["visible1"] ? "text" : "password"}
-                onChange={changeHandler}
-                placeholder=""
-                value={editData["oldPassword"]}
-                name="oldPassword"
-                className="border rounded-md py-1 px-2 outline-non min-w-0 max-w-full shadow shadow-gray-400"
-              />
-
-              <span
-                id="visible1"
-                onClick={() => visibilityHandler("visible1")}
-                className="absolute right-5 top-10"
-              >
-                {showPassword["visible1"] ? (
-                  <MdVisibilityOff />
-                ) : (
-                  <MdVisibility />
-                )}
-              </span>
-            </label>
-
-            <label className="relative">
-              <span className="relative">New Password</span>
-              <input
-                type={showPassword["visible2"] ? "text" : "password"}
-                onChange={changeHandler}
-                placeholder=""
-                value={editData["newPassword"]}
-                name="newPassword"
-                className="border rounded-md py-1 px-2 outline-none min-w-0 max-w-full shadow shadow-gray-400"
-              />
-
-              <span
-                id="visible1"
-                onClick={() => visibilityHandler("visible2")}
-                className="absolute right-5 top-10 min-w-0 max-w-full"
-              >
-                {showPassword["visible2"] ? (
-                  <MdVisibilityOff />
-                ) : (
-                  <MdVisibility />
-                )}
-              </span>
-            </label>
-
-            <label className="relative">
-              <span className="relative">Confirm Password</span>
-              <input
-                type={showPassword["visible3"] ? "text" : "password"}
-                onChange={changeHandler}
-                placeholder=""
-                value={editData["confirmPassword"]}
-                name="confirmPassword"
-                className="border rounded-md py-1 px-2 outline-none min-w-0 max-w-full shadow shadow-gray-400"
-              />
-
-              <span
-                id="visible1"
-                onClick={() => visibilityHandler("visible3")}
-                className="absolute right-5 top-10 min-w-0 max-w-full"
-              >
-                {showPassword["visible3"] ? (
-                  <MdVisibilityOff />
-                ) : (
-                  <MdVisibility />
-                )}
-              </span>
-            </label>
-          </form>
-        </div>
-      </div>
-      <span className=" italic-text rounded-md text-pink-500  px-2">
-        {message}
-      </span>
+    <div className="absolute h-screen w-screen top-0 left-0 overflow-x-hidden flex justify-center items-center">
       <div
-        onClick={editHandler}
-        className="w-fit my-2 py-1 px-2 rounded-xl loginButton"
+        style={{ animation: "dropTop 0.8s " }}
+        className="flex z-50 relative min-w-32 mx-2  flex-col justify-center  items-center font-poppins text-black rounded-xl bg-white p-2 select-none shadow-gray-300 shadow-lg transition-all duration-1000"
       >
-        Confirm
+        <div onClick={cancelForm}>
+          <ImCross className="absolute -right-2 -top-2 bg-red-600 p-2 scale-125 text-3xl transition-all duration-200 rounded-full hover:scale-150 text-white" />
+        </div>
+
+        <div className="flex flex-wrap justify-center items-center gap-x-3 m-3">
+          <div className="relative">
+            <img
+              width="500px"
+              id="profileImage"
+              src={data.profilePhoto}
+              className="min-w-8 max-w-64 aspect-square rounded-full"
+            />
+            <label htmlFor="fileInput">
+              <MdEdit className="absolute right-8 bg-black text-white rounded-full p-1 text-2xl top-56 scale-150" />
+            </label>
+            <input
+              id="fileInput"
+              type="file"
+              style={{ display: "none" }}
+              onChange={handleFileInputChange}
+            />
+            {showConfirmation && (
+              <div className="flex gap-x-2 mt-3 justify-center">
+                <button
+                  className="px-4 py-2 hover:scale-110 transition-all duration-300 outline-slate-950 bg-green-500 text-white rounded hover:bg-green-600"
+                  onClick={confirmImage}
+                >
+                  Confirm
+                </button>
+                <button
+                  className="px-4 py-2 hover:scale-110 transition-all duration-300 bg-red-500 text-white rounded hover:bg-red-600"
+                  onClick={cancelImage}
+                >
+                  Cancel
+                </button>
+              </div>
+            )}
+          </div>
+          <div>
+            <form className="flex relative flex-col gap-y-4 my-3 justify-center text-lg  outline-none font-poppins max-w-60 ">
+              <label className="w-full">
+                <span>UserName</span>
+                <input
+                  type="text"
+                  onChange={changeHandler}
+                  placeholder=""
+                  value={editData["username"]}
+                  name="username"
+                  className="border rounded-md py-1 px-2 min-w-0 max-w-full shadow shadow-gray-400"
+                />
+              </label>
+              <label>
+                <span className="mt-3">Email</span>
+                <input
+                  type="email"
+                  placeholder=""
+                  value={editData["email"]}
+                  name="email"
+                  className="border bg-gray-300 select-none rounded-md py-1 px-2 min-w-0 max-w-full"
+                />
+              </label>
+
+              <label className="relative">
+                <span>Old Password</span>
+                <input
+                  type={showPassword["visible1"] ? "text" : "password"}
+                  onChange={changeHandler}
+                  placeholder=""
+                  value={editData["oldPassword"]}
+                  name="oldPassword"
+                  className="border rounded-md py-1 px-2 outline-non min-w-0 max-w-full shadow shadow-gray-400"
+                />
+
+                <span
+                  id="visible1"
+                  onClick={() => visibilityHandler("visible1")}
+                  className="absolute right-5 top-10"
+                >
+                  {showPassword["visible1"] ? (
+                    <MdVisibilityOff />
+                  ) : (
+                    <MdVisibility />
+                  )}
+                </span>
+              </label>
+
+              <label className="relative">
+                <span className="relative">New Password</span>
+                <input
+                  type={showPassword["visible2"] ? "text" : "password"}
+                  onChange={changeHandler}
+                  placeholder=""
+                  value={editData["newPassword"]}
+                  name="newPassword"
+                  className="border rounded-md py-1 px-2 outline-none min-w-0 max-w-full shadow shadow-gray-400"
+                />
+
+                <span
+                  id="visible1"
+                  onClick={() => visibilityHandler("visible2")}
+                  className="absolute right-5 top-10 min-w-0 max-w-full"
+                >
+                  {showPassword["visible2"] ? (
+                    <MdVisibilityOff />
+                  ) : (
+                    <MdVisibility />
+                  )}
+                </span>
+              </label>
+
+              <label className="relative">
+                <span className="relative">Confirm Password</span>
+                <input
+                  type={showPassword["visible3"] ? "text" : "password"}
+                  onChange={changeHandler}
+                  placeholder=""
+                  value={editData["confirmPassword"]}
+                  name="confirmPassword"
+                  className="border rounded-md py-1 px-2 outline-none min-w-0 max-w-full shadow shadow-gray-400"
+                />
+
+                <span
+                  id="visible1"
+                  onClick={() => visibilityHandler("visible3")}
+                  className="absolute right-5 top-10 min-w-0 max-w-full"
+                >
+                  {showPassword["visible3"] ? (
+                    <MdVisibilityOff />
+                  ) : (
+                    <MdVisibility />
+                  )}
+                </span>
+              </label>
+            </form>
+          </div>
+        </div>
+        <span className=" italic-text rounded-md text-pink-500  px-2">
+          {message}
+        </span>
+        <div
+          onClick={editHandler}
+          className="w-fit my-2 py-1 px-2 rounded-xl loginButton"
+        >
+          Confirm
+        </div>
       </div>
     </div>
   );

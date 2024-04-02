@@ -224,7 +224,7 @@ const AddTaskForm = (props) => {
         <div className="  flex justify-center">
           <div
             ref={dropdownRef}
-            className="absolute z-20 transition-all duration-300 bg-white shadow w-80 right-0 rounded-xl"
+            className="absolute z-20 transition-all duration-300 bg-white shadow w-80  rounded-xl"
           >
             <form
               onSubmit={projectFormHandler}

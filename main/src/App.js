@@ -63,7 +63,7 @@ function App() {
             doUpdate={doUpdate}
             setUser={setUser}
           />
-          <div className="absolute top-0 left-0 z-30 transition-all duration-1000">
+          <div className="absolute top-0 left-0 z-40 transition-all duration-1000">
             {user && (
               <ActionButton
                 updateStatus={updateStatus}

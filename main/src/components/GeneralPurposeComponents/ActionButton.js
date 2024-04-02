@@ -144,17 +144,17 @@ const ActionButton = ({ user, updateStatus, isOpen, setIsOpen }) => {
       <div
         className={`${
           
-          isOpen ? "fixed top-0 left-0 bg-opacity-50 bg-black  w-screen h-screen" : "" + " sx:-z-50"
+          isOpen ? "fixed z-50 top-0 left-0 bg-opacity-50 bg-black  w-screen h-screen" : "" + " sx:-z-50"
         }`}
       >
         <div>
           <div
-            className={` z-20 top-20 left-4 opacity-100  transition-all duration-300 rounded-3xl  shadow -translate-x-[70vw] flex flex-col absolute items-center ${
+            className={` z-50 top-20 my-4 left-4 opacity-100  transition-all duration-300 rounded-3xl  shadow -translate-x-[70vw] flex flex-col absolute items-center ${
               isOpen ? "translate-x-[70vwvw]" : ""
             }`}
             ref={dropdownRef}
           >
-            <div className="   transition-all duration-300 flex flex-col ">
+            <div className="  z-50 transition-all duration-300 flex flex-col ">
               <div className=" transition-all rounded-xl bg-[#fcf8ff] duration-300">
                 
                 <div
