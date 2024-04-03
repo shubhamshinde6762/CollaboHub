@@ -4,7 +4,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import EmojiButton from "../../GeneralPurposeComponents/EmojiButton";
 import Attachments from "../../GeneralPurposeComponents/Attachments";
 import Message from "./Message";
-
+import { motion, AnimatePresence } from "framer-motion";
 import { FaArrowUp } from "react-icons/fa";
 
 const Chat = ({ user, chat, newMessage, setChatSection }) => {
@@ -160,7 +160,7 @@ const Chat = ({ user, chat, newMessage, setChatSection }) => {
       {chat && (
         <div className="flex flex-col h-full">
           <div className="flex p-1 px-5 rounded-full items-center gap-x-1 text-xl font-bold bg-sky-100">
-            <IoMdArrowRoundBack onClick={() => setChatSection(null)}/>
+            <IoMdArrowRoundBack onClick={() => setChatSection(null)} />
             <img
               src={
                 (chat.group && chat.group.profilePhoto) ||
@@ -174,9 +174,19 @@ const Chat = ({ user, chat, newMessage, setChatSection }) => {
             ref={messagesRef}
             className="flex-grow overflow-y-scroll my-2 custom-scrollbar"
           >
-            {messages.map((obj) => (
-              <Message key={obj._id} user={user} messageText={obj} />
-            ))}
+            <AnimatePresence>
+              {messages.map((obj, index) => (
+                <motion.div
+                  key={obj._id}
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -50 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <Message user={user} messageText={obj} />
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
           <div className="w-full bg-slate-100 rounded-full  flex gap-x-3 items-center px-5">
             <EmojiButton emojiHandler={emojiHandler} />

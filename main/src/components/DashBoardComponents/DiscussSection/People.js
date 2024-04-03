@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
+import { motion } from "framer-motion";
 const People = ({
   user,
   setChatSection,
@@ -47,7 +47,6 @@ const People = ({
         console.log(response.data.data);
         let temp = response.data.data.filter((ele) => ele.lastMessage);
         temp.sort((a, b) => {
-
           const extractDateTime = (dateString) => {
             const [datePart, timePart] = dateString.split(" ");
             const [day, month, year] = datePart.split("/");
@@ -133,10 +132,15 @@ const People = ({
           {user &&
             user.data &&
             chats &&
-            chats.map((ele) => (
-              <div
+            chats.map((ele, index) => (
+              <motion.div
+                key={ele._id} // Assuming _id is unique for each chat item
                 onClick={(event) => setChatSection(ele)}
                 className="flex hover:scale-[1.02] hover:bg-purple-100 px-2 rounded-lg py-1 transition-all duration-500 cursor-pointer w-full gap-2"
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -50 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
               >
                 <img
                   className="w-11 rounded-full"
@@ -146,11 +150,9 @@ const People = ({
                   }
                 />
                 <div className="flex w-full flex-col gap-0">
-                  <p className="">
-                    <p className="">
-                      {(ele.group && ele.group.chatName) ||
-                        (ele.user && ele.user.username)}{" "}
-                    </p>
+                  <p>
+                    {(ele.group && ele.group.chatName) ||
+                      (ele.user && ele.user.username)}
                   </p>
                   {ele.lastMessage && ele.lastMessage.content && (
                     <p className="text-sm flex font-courier text-gray-500">
@@ -181,7 +183,7 @@ const People = ({
                     <div className="text-sm font-courier">No message</div>
                   )}
                 </div>
-              </div>
+              </motion.div>
             ))}
         </div>
       </div>

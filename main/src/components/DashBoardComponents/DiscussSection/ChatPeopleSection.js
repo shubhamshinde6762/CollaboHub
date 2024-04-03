@@ -3,7 +3,6 @@ import People from "./People";
 import SearchPeople from "./SearchPeople";
 import { IoSearch } from "react-icons/io5";
 import { IoMdAdd } from "react-icons/io";
-import axios from "axios";
 import CreateGroupContacts from "./CreateGroupContacts";
 
 const ChatPeopleSection = ({

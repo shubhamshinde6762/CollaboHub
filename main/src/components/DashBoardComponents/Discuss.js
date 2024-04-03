@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Chat from "./DiscussSection/Chat";
 import ChatPeopleSection from "./DiscussSection/ChatPeopleSection";
-
+import { motion } from "framer-motion";
 const Discuss = ({
   user,
   socket,
@@ -23,15 +23,25 @@ const Discuss = ({
           user={user}
           className=""
         />
-        <Chat newMessage={newMessage} setChatSection={setChatSection} chat={chat} user={user}></Chat>
+
+        <Chat
+          newMessage={newMessage}
+          setChatSection={setChatSection}
+          chat={chat}
+          user={user}
+        ></Chat>
       </div>
 
       <div className="sx:block h-[89vh] hidden w-full">
         {chat ? (
-          <Chat newMessage={newMessage} setChatSection={setChatSection} chat={chat} user={user}></Chat>
+          <Chat
+            newMessage={newMessage}
+            setChatSection={setChatSection}
+            chat={chat}
+            user={user}
+          ></Chat>
         ) : (
           <ChatPeopleSection
-
             needToUpdateChat={needToUpdateChat}
             newMessage={newMessage}
             setChatSection={setChatSection}
