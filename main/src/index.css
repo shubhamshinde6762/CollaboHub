@@ -197,12 +197,12 @@
   margin: 0 auto;
   padding: 10px;
   font-size: 24px;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   position: relative;
 }
 
 #typing-text::after {
-  content: '|';
+  content: "|";
   display: inline-block;
   animation: blink 2s infinite;
   margin-left: 3px;
@@ -220,9 +220,19 @@
   }
 }
 .gradient-text {
-  background-image: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(151,53,156,1) 92%, rgba(252,176,69,1) 100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(131, 58, 180, 1) 0%,
+    rgba(253, 29, 29, 1) 50%,
+    rgba(151, 53, 156, 1) 92%,
+    rgba(252, 176, 69, 1) 100%
+  );
   background-clip: text;
   -webkit-background-clip: text;
   -moz-background-clip: text;
   color: transparent;
+}
+
+.slick-slide > div {
+  margin: 0 10px;
 }

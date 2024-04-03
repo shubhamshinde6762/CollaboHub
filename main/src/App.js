@@ -42,7 +42,7 @@ function App() {
   }, 700)
 
   return (
-    <div>
+    <div className=" select-none">
       <Intro />
       {isIntroEnded && (
         <div className=" flex   bg-purple-100  flex-col items-center">
@@ -74,7 +74,7 @@ function App() {
               />
             )}
           </div>
-          <div className=" z-40 select-none flex justify-center bg-[#fcf8ff] bg-opacity-95  shadow-purple-400 border border-double border-purple-400  items-center sticky   p-3  w-[98%] rounded-2xl  mt-3">
+          <div className=" z-40  select-none flex justify-center bg-[#fcf8ff] bg-opacity-95  shadow-purple-400 border border-double border-purple-400  items-center sticky   p-3  w-[98%] rounded-2xl  mt-3">
             <navbar className="flex  items-center justify-center  h-[4vh] xs:max-h-[3vh] w-full">
               <div className="flex justify-center items-center gap-x-2">
                 {user && (

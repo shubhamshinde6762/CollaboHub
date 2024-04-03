@@ -8,20 +8,24 @@ const LandPageIntro = () => {
     <div className="flex select-none relative z-0 overflow-x-hidden bg-purple-600 flex-wrap-reverse w-full min-h-screen items-center justify-center">
       <motion.img
         src={
-          "https://res.cloudinary.com/dd6sontgf/image/upload/v1711956456/blue-border-abstract-gradient-background_ve6zwh.jpg"
+          "https://res.cloudinary.com/dd6sontgf/image/upload/v1712156012/vecteezy_abstract-purple-fluid-wave-background__porgth.jpg"
         }
-        className="absolute top-0 left-0 w-screen h-screen -z-10 "
+        className="absolute blur-sm top-0 left-0 w-screen h-screen -z-10 "
         initial={{ opacity: 0, scale: 1.5 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1 }}
+        alt="Background"
+        loading="lazy"
       />
       <div className="min-w-[250px] max-w-[700px] z-10 py-[4vh] rounded-3xl max-h-full items-center justify-center">
         <motion.img
-          className="aspect-auto bg-slate-700 bg-opacity-20 mx-4 rounded-3xl bg-blend-soft-light w-full"
+          className="aspect-auto bg-purple-300 shadow-2xl shadow-purple-950 bg-opacity-25 mx-4 rounded-3xl bg-blend-soft-light w-full"
           src="https://res.cloudinary.com/dd6sontgf/image/upload/f_auto,q_auto/nlmfo7ufm5b8ftqsmbqt"
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 1 }}
+          alt="Project"
+          loading="lazy"
         />
       </div>
       <motion.div
