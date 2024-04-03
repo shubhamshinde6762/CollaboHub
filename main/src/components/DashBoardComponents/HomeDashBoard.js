@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import NotesHomePage from "./HomeComponents/Notes/NotesHomePage";
 import UserPanel from "./HomeComponents/userPanel/UserPanel";
 import ProjectList from "./HomeComponents/ProjectListComponents/ProjectList";
@@ -10,7 +11,7 @@ const HomeDashBoard = ({ user, isUpdate }) => {
   const [projectIdArray, setProjectIdArray] = useState([]);
   const [taskIdArray, setTaskIdArray] = useState([]);
   const [taskDetails, setTaskDetails] = useState([]);
-  let [sortedTasks, setSortedTasks] = useState([]);
+  const [sortedTasks, setSortedTasks] = useState([]);
   const [allDetails, setAllDetails] = useState([]);
   const [busyArray, setBusyArray] = useState(Array(7).fill(0));
 
@@ -21,79 +22,77 @@ const HomeDashBoard = ({ user, isUpdate }) => {
   currentTimeStamp.setMilliseconds(0);
 
   useEffect(() => {
-    try {
-      if (user && user.data && user.data.projectIds) {
-        setProjectIdArray(user.data.projectIds);
-      }
-    } catch (err) {}
+    if (user && user.data && user.data.projectIds) {
+      setProjectIdArray(user.data.projectIds);
+    }
   }, [user]);
 
   useEffect(() => {
-    const fetch = async () => {
+    const fetchTaskDetails = async () => {
       try {
-        let response = await axios.post(
+        const response = await axios.post(
           "https://collabo-hub-ten.vercel.app/api/v1/fetchTask",
-          {
-            tasks: taskIdArray,
-          }
+          { tasks: taskIdArray }
         );
-        console.log("response", response);
         if (response && response.data && response.data.data) {
-          response.data.data.map((task) => {
-            task.contributorsId.map((contributor) => {
-              if (contributor._id === user.data._id)
-                if (contributor.completedOn !== null) task.completed = true;
-                else task.completed = false;
+          const updatedTaskDetails = response.data.data.map((task) => {
+            task.contributorsId.forEach((contributor) => {
+              if (contributor._id === user.data._id) {
+                task.completed = contributor.completedOn !== null;
+              }
             });
+            return task;
           });
-          setTaskDetails(response.data.data);
+          setTaskDetails(updatedTaskDetails);
         }
-      } catch (err) {
-        console.log("Error occured");
+      } catch (error) {
+        console.log("Error fetching task details");
       }
     };
 
-    fetch();
+    fetchTaskDetails();
   }, [taskIdArray, isUpdate]);
 
   useEffect(() => {
-    try {
-      if (projectDetails && projectDetails.length > 0) {
-        const newTaskIdArray = [];
-        projectDetails.forEach((project) => {
-          if (project.contributorsIds && project.contributorsIds.length > 0) {
-            project.contributorsIds.forEach((contributor) => {
-              if (contributor._id === user.data._id) {
-                newTaskIdArray.push(...contributor.contributingTask);
-              }
-            });
-          }
-        });
-        setTaskIdArray(newTaskIdArray);
-      }
-    } catch (err) {}
-  }, [projectDetails]);
-
-  useEffect(() => {
-    const fetchProject = async () => {
+    const fetchProjectDetails = async () => {
       try {
-        const response1 = await axios.post(
+        const response = await axios.post(
           "https://collabo-hub-ten.vercel.app/api/v1/fetchProject",
           { projectArray: projectIdArray }
         );
-        console.log("its response", response1);
-        if (response1 && response1.data && response1.data.data) {
-          setProjectDetails(response1.data.data);
+        if (response && response.data && response.data.data) {
+          setProjectDetails(response.data.data);
         }
       } catch (error) {
-        console.log("failed");
+        console.log("Error fetching project details");
       }
     };
-    fetchProject();
+
+    fetchProjectDetails();
   }, [projectIdArray, isUpdate]);
 
   useEffect(() => {
-    if (taskDetails && taskDetails.length > 0) {
+    const updateTaskIdArray = () => {
+      const newTaskIdArray = projectDetails.reduce((acc, project) => {
+        if (project.contributorsIds && project.contributorsIds.length > 0) {
+          project.contributorsIds.forEach((contributor) => {
+            if (contributor._id === user.data._id) {
+              acc.push(...contributor.contributingTask);
+            }
+          });
+        }
+        return acc;
+      }, []);
+      setTaskIdArray(newTaskIdArray);
+    };
+
+    if (projectDetails.length > 0) {
+      updateTaskIdArray();
+    }
+  }, [projectDetails]);
+
+  useEffect(() => {
+    if (taskDetails.length > 0) {
       const sortedTasks = [...taskDetails].sort((taskA, taskB) => {
         if (taskA.dueDate < taskB.dueDate) {
           return -1;
@@ -119,91 +118,92 @@ const HomeDashBoard = ({ user, isUpdate }) => {
   }, [taskDetails]);
 
   useEffect(() => {
-    try {
-      if (
-        user &&
-        user.data &&
-        taskDetails &&
-        projectDetails &&
-        taskDetails.length &&
-        projectDetails.length
-      ) {
-        let busyTemp = Array(7).fill(0);
-        const updatedAllDetails = projectDetails.map((project) => {
-          const projectTasks = {
-            projectId: project._id,
-            projectName: project.projectName,
-            todoTasks: [],
-            completedTasks: [],
-            overdueTasks: [],
-          };
-          taskDetails.forEach((task) => {
-            const due = new Date(task.dueDate);
-            task.contributorsId.map((contributor) => {
-              if (contributor._id === user.data._id) {
-                if (task.projectId === project._id) {
-                  let priorityValue = task.priority === "High" ? 1.5 : (task.priority === "Medium" ? 1.25 : 1);
-                  if (
-                    currentTimeStamp <= due &&
-                    contributor.completedOn === null
-                  ) {
-                    if (!projectTasks.todoTasks) {
-                      projectTasks.todoTasks = [];
-                    }
-                    const millisecondsPerDay = 1000 * 60 * 60 * 24;
-                    let days = Math.floor((due - currentTimeStamp) / millisecondsPerDay);
-
-
-                    console.log(days)
-                    for (let i = 0; i < days && i < 7; i++)
-                      busyTemp[i] += priorityValue;
-                    projectTasks.todoTasks.push(task);
-                  } else if (contributor.completedOn !== null) {
-                    if (!projectTasks.completedTasks) {
-                      projectTasks.completedTasks = [];
-                    }
-                    projectTasks.completedTasks.push(task);
-                  } else if (currentTimeStamp > due) {
-                    if (!projectTasks.overdueTasks) {
-                      projectTasks.overdueTasks = [];
-                    }
-                    busyTemp[0] += 1.75;
-                    projectTasks.overdueTasks.push(task);
+    if (
+      user &&
+      user.data &&
+      taskDetails.length > 0 &&
+      projectDetails.length > 0
+    ) {
+      let busyTemp = Array(7).fill(0);
+      const updatedAllDetails = projectDetails.map((project) => {
+        const projectTasks = {
+          projectId: project._id,
+          projectName: project.projectName,
+          todoTasks: [],
+          completedTasks: [],
+          overdueTasks: [],
+        };
+        taskDetails.forEach((task) => {
+          const due = new Date(task.dueDate);
+          task.contributorsId.forEach((contributor) => {
+            if (contributor._id === user.data._id) {
+              if (task.projectId === project._id) {
+                let priorityValue = task.priority === "High" ? 1.5 : task.priority === "Medium" ? 1.25 : 1;
+                if (currentTimeStamp <= due && contributor.completedOn === null) {
+                  if (!projectTasks.todoTasks) {
+                    projectTasks.todoTasks = [];
                   }
+                  const millisecondsPerDay = 1000 * 60 * 60 * 24;
+                  let days = Math.floor((due - currentTimeStamp) / millisecondsPerDay);
+                  for (let i = 0; i < days && i < 7; i++) busyTemp[i] += priorityValue;
+                  projectTasks.todoTasks.push(task);
+                } else if (contributor.completedOn !== null) {
+                  if (!projectTasks.completedTasks) {
+                    projectTasks.completedTasks = [];
+                  }
+                  projectTasks.completedTasks.push(task);
+                } else if (currentTimeStamp > due) {
+                  if (!projectTasks.overdueTasks) {
+                    projectTasks.overdueTasks = [];
+                  }
+                  busyTemp[0] += 1.75;
+                  projectTasks.overdueTasks.push(task);
                 }
               }
-            });
+            }
           });
-          console.log(busyArray)
-          return projectTasks;
         });
-        setAllDetails(updatedAllDetails);
-        setBusyArray(busyTemp);
-      }
-    } catch (err) {}
+        return projectTasks;
+      });
+      setAllDetails(updatedAllDetails);
+      setBusyArray(busyTemp);
+    }
   }, [taskDetails]);
-
-  useEffect(() => {
-    console.log(busyArray)
-  }, [busyArray])
 
   return (
     user &&
     user.data && (
-      <div className="w-full grid  grid-cols-1  sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 mt-[0.95rem] pt-1">
-        <UserPanel
-          projectDetails={projectDetails}
-          sortedTasks={sortedTasks}
-          className=" grid-flow-row"
-          user={user}
-          allDetails={allDetails}
-          busyArray={busyArray}
-        />
-        <div className="flex flex-col gap-4">
-          <NotesHomePage className="" user={user} />
-          <ProjectList user={user} sortedTasks={sortedTasks} />
-        </div>
-      </div>
+      <motion.div
+        className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 mt-[0.95rem] pt-1"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <UserPanel
+            projectDetails={projectDetails}
+            sortedTasks={sortedTasks}
+            className=" grid-flow-row"
+            user={user}
+            allDetails={allDetails}
+            busyArray={busyArray}
+          />
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <div className="flex flex-col gap-4">
+            <NotesHomePage className="" user={user} />
+            <ProjectList user={user} sortedTasks={sortedTasks} />
+          </div>
+        </motion.div>
+      </motion.div>
     )
   );
 };

@@ -9,9 +9,9 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { GoProjectSymlink } from "react-icons/go";
 import { IoIosArrowDropdown } from "react-icons/io";
 import { IoIosArrowDropup } from "react-icons/io";
+import { motion } from "framer-motion";
+
 const ActionPanel = (props) => {
-
-
   const [project, refreshProject] = useState({});
   const selectedProjectClass = "bg-gray-500 text-white p-1 m-1 text-center";
   const [showProjects, setShowProjects] = useState(false);
@@ -21,11 +21,11 @@ const ActionPanel = (props) => {
     setArrowIcon(showProjects ? <IoIosArrowDropdown /> : <IoIosArrowDropup />);
   };
   const [selectId, setSelectId] = useState();
-
   const handleClick = (id) => {
     setSelectId(id);
   };
   const navigate = useNavigate();
+
   useEffect(() => {
     updateProjects();
     return () => {};
@@ -82,6 +82,7 @@ const ActionPanel = (props) => {
   const changeHandler = (event) => {
     setProjectName(event.target.value);
   };
+
   const createHandler = async (event) => {
     event.preventDefault();
     if (projectName === "") return;
@@ -95,7 +96,6 @@ const ActionPanel = (props) => {
         }
       );
 
-      // Check if the response status is successful (e.g., 200)
       setProjectName("");
       if (response.status === 200) {
         setShowInput(false);
@@ -105,21 +105,29 @@ const ActionPanel = (props) => {
       console.log(err);
     }
   };
+
   return (
     <div>
-      { (
-        <div className="flex justify-center sx:hidden  ml-4 z-0 transition-all duration-300 h-[87vh] select-none ">
+      {
+        <motion.div
+          className="flex justify-center sx:hidden  ml-4 z-0 transition-all duration-300 h-[87vh] select-none "
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <div className="  transition-all duration-300 flex flex-col gap-3">
             <div className=" flex bg-[#fcf8ff] rounded-2xl flex-col items-center transition-all duration-300 text-lg">
-              <div
+              <motion.div
                 onClick={navHome}
                 className={`flex rounded-xl font-barlow  w-full px-4 font-bold items-center text-center hover:scale-105 transition-all duration-200 cursor-pointer mx-1 gap-3  py-2 text-black ${
                   selectId === "home" ? selectedProjectClass : "hover:bg-white"
                 }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <IoHomeOutline />
                 Home
-              </div>
+              </motion.div>
               <NavLink
                 to={`/dashboard/discuss`}
                 onClick={() => handleClick("discussion")}
@@ -128,6 +136,8 @@ const ActionPanel = (props) => {
                     ? selectedProjectClass
                     : "hover:bg-white"
                 }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <GiDiscussion />
                 Discuss
@@ -140,19 +150,23 @@ const ActionPanel = (props) => {
                     ? selectedProjectClass
                     : "hover:bg-white"
                 }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 {" "}
                 <FaCalendarAlt />
                 Calender
               </NavLink>
-              <div
+              <motion.div
                 onClick={async () => await clickHandler()}
                 id="addProject"
                 className="flex rounded-xl font-barlow hover:bg-white w-full  px-4 font-bold items-center text-center min-w-44  overflow-y-hidden  hover:scale-105 transition-all duration-200 cursor-pointer  gap-2  py-2 text-black "
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <FaPlus />
                 Projects
-              </div>
+              </motion.div>
               {showInput && (
                 <form
                   onSubmit={createHandler}
@@ -171,7 +185,7 @@ const ActionPanel = (props) => {
                       onChange={changeHandler}
                     />
                   </label>
-                  <button
+                  <motion.button
                     className={
                       `${
                         projectName.length > 0
@@ -179,23 +193,37 @@ const ActionPanel = (props) => {
                           : "bg-gray-500 cursor-not-allowed"
                       }` + " text-white px-4 w-fit rounded-md "
                     }
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     Done
-                  </button>
+                  </motion.button>
                 </form>
               )}
             </div>
 
-            <div className="w-full font-barlow  max-h-[59vh] relative  bg-[#fcf8ff] rounded-2xl">
-              <div
+            <motion.div
+              className="w-full font-barlow  max-h-[59vh] relative  bg-[#fcf8ff] rounded-2xl"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <motion.div
                 onClick={toggleShowProjects}
                 className="text-black flex justify-center gap-2 cursor-pointer hover:bg-slate-200 px-2 py-2 rounded-xl  items-center w-full text-center  text-lg "
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <GoProjectSymlink />
                 Catalogue
-                <div>{arrowIcon}</div>
-              </div>
-              <div className={`dropdown-content ${showProjects ? 'active' : ''}`}>
+                <motion.div>{arrowIcon}</motion.div>
+              </motion.div>
+              <motion.div
+                className={`dropdown-content ${showProjects ? "active" : ""}`}
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
                 {showProjects && (
                   <div className="text-xl my-2 text-black max-h-[45vh] h-fit custom-scrollbar rounded-sm  flex flex-col  overflow-y-scroll option">
                     {project.data ? (
@@ -209,8 +237,12 @@ const ActionPanel = (props) => {
                               ? selectedProjectClass
                               : " hover:bg-gray-100 text-base hover:scale-105"
                           }`}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
                         >
-                          <div className="overflow-ellipsis max-w-[130px]  overflow-hidden whitespace-nowrap">{ele.projectName}</div>
+                          <div className="overflow-ellipsis max-w-[130px]  overflow-hidden whitespace-nowrap">
+                            {ele.projectName}
+                          </div>
                         </NavLink>
                       ))
                     ) : (
@@ -218,11 +250,11 @@ const ActionPanel = (props) => {
                     )}
                   </div>
                 )}
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
-        </div>
-      )}
+        </motion.div>
+      }
     </div>
   );
 };

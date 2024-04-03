@@ -48,7 +48,7 @@ const LandPageIntro = () => {
                 "Scopes",
                 "Opportunities",
               ]}
-              showCursor={false}
+              showCursor={true}
               typeSpeed={200}
               backSpeed={50}
               loop

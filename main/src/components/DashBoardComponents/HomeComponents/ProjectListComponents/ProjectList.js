@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { FaTasks } from "react-icons/fa";
 import { PieChart } from "react-minimal-pie-chart";
+import { motion } from "framer-motion";
+
 const ProjectList = ({ sortedTasks, user }) => {
   const [tasksToRender, setTaskToRender] = useState(null);
 
   useEffect(() => {
-    // setTaskToRender(null);
     let temp = sortedTasks;
     temp &&
       temp.map((ele) => {
@@ -56,22 +57,30 @@ const ProjectList = ({ sortedTasks, user }) => {
   return (
     tasksToRender !== null &&
     tasksToRender && (
-      <div className="min-w-[275px]  bg-[#fcf8ff] w-[95%] mx-[2.5%] rounded-xl p-3 px-4 min-h-[37vh] h-full shadow">
+      <motion.div
+        className="min-w-[275px]  bg-[#fcf8ff] w-[95%] mx-[2.5%] rounded-xl p-3 px-4 min-h-[37vh] h-full shadow"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
         <div className="grid grid-cols-1 grid-flow-dense md:grid-cols-2 h-[39vh]  w-full gap-2  p-2 custom-scrollbar overflow-y-scroll">
           {tasksToRender &&
-            tasksToRender.map((task) => {
+            tasksToRender.map((task, index) => {
               return (
                 !task.completed && (
-                  <div
+                  <motion.div
+                    key={index}
                     className="shadow flex flex-wrap relative gap-3  justify-center w-full p-2 cursor-pointer rounded-xl min-h-[15vh] h-fit hover:scale-[90%] transition-transform duration-300"
                     style={{ backgroundColor: getPriorityColor(task.priority) }}
+                    initial={{ opacity: 0, scale: 0.9, y: 40 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
                     <div className="absolute text-sm bg-red-500 text-white font-bold px-2 rounded-xl -right-1 -top-1">
                       {task.dueDate}
                     </div>
                     <div className="min-w-[40px] max-w-[70px]">
                       <PieChart
-                      
                         className=" w-"
                         data={[
                           {
@@ -117,12 +126,12 @@ const ProjectList = ({ sortedTasks, user }) => {
                         Assigned On : <div className="bg-green-500 w-fit px-2 rounded-xl text-white mt-1">{task.createdOn.split(' ')[0]}</div>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 )
               );
             })}
         </div>
-      </div>
+      </motion.div>
     )
   );
 };

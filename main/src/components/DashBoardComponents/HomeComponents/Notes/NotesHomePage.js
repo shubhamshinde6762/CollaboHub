@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
+import { motion } from "framer-motion";
 import NotesEditPage from "./NotesEditPage";
 import axios from "axios";
 
@@ -10,82 +11,95 @@ const NotesHomePage = ({ user }) => {
   const [currentNote, setCurrentNote] = useState(null);
 
   useEffect(() => {
-    const fetch = async () => {
+    const fetchNotes = async () => {
       try {
-        // console.log(user , 123 )
-        let unsortednotes = [];
+        let unsortedNotes = [];
         const response = await axios.post(
           "https://collabo-hub-ten.vercel.app/api/v1/fetchnote",
           {
             notesArray: user.data.notes,
           }
         );
-        unsortednotes = response.data.data;
-        unsortednotes.reverse();
-        setNotes(unsortednotes);
-        // console.log(response);
-      } catch (err) {}
+        unsortedNotes = response.data.data;
+        unsortedNotes.reverse();
+        setNotes(unsortedNotes);
+      } catch (err) {
+        console.log("Error fetching notes:", err);
+      }
     };
 
-    fetch();
+    fetchNotes();
   }, [user]);
 
   return (
-    <div className="min-w-[260px] bg-[#fcf8ff] mx-[2.5%]  h-full min-h-[37vh] w-[95%]  rounded-lg shadow font-poppins">
-      {newNoteComponent ? (
+    <motion.div
+      className="min-w-[260px] bg-[#fcf8ff] mx-[2.5%] h-full min-h-[37vh] w-[95%] rounded-lg shadow font-poppins"
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      {newNoteComponent && (
         <NotesEditPage
           className="w-full"
           user={user}
           setNewNoteComponent={setNewNoteComponent}
           isNew={true}
           setNotes={setNotes}
-
         />
-      ) : viewNote ? (
-        <NotesEditPage 
+      )}
+      {viewNote && (
+        <NotesEditPage
           user={user}
           setNewNoteComponent={setViewNote}
           isNew={false}
           currentNote={currentNote}
           setNotes={setNotes}
         />
-      ) : (
-        <div />
       )}
-
-      {newNoteComponent == false && viewNote == false && (
+      {!newNoteComponent && !viewNote && (
         <div className="flex flex-col p-3 max-h-[40vh] ">
           <div className="flex flex-col gap-y-1 relative items-center w-full text-center">
-            <FaPlus
+            <motion.div
               onClick={() => setNewNoteComponent(true)}
-              className=" absolute left-2 top-[0.15rem] spin-once-hover spin-once-unhover group-hover:spin-once bg-green-500 p-1 text-2xl rounded-full text-white"
-            />
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="absolute left-2 top-[0.15rem] group-hover:spin-once bg-green-500 p-1 text-2xl rounded-full text-white"
+            >
+              <FaPlus className="scale-100 text-base" />
+            </motion.div>
             <div className="w-full text-lg font-bold">Notes</div>
-            <div className="w-[98%] bg-slate-300 h-[2px] " />
+            <div className="w-[98%] bg-slate-300 h-[2px]" />
           </div>
-          <div className="flex flex-col gap-y-2 overflow-y-scroll custom-scrollbar  ">
-              {notes &&
-                notes.length !== 0 &&
-                notes.map((ele) => (
-                  <div onClick={() => {
-                    setCurrentNote(ele);
+          <div className="flex flex-col gap-y-2 overflow-y-scroll custom-scrollbar">
+            {notes.length > 0 ? (
+              notes.map((note) => (
+                <motion.div
+                  key={note._id}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    setCurrentNote(note);
                     setViewNote(true);
-                  }} className="flex flex-col shadow cursor-pointer hover:bg-slate-50 rounded-lg transition-all duration-300 px-4 py-1  ">
-                    <div className="font-bold overflow-ellipsis overflow-hidden whitespace-nowrap">{ele.title || "title"}</div>
-                    <div className="overflow-x-clip font-sans  overflow-ellipsis overflow-hidden whitespace-nowrap">{ele.description}</div>
+                  }}
+                  className="flex flex-col shadow cursor-pointer hover:bg-slate-50 rounded-lg transition-all duration-300 px-4 py-1"
+                >
+                  <div className="font-bold overflow-ellipsis overflow-hidden whitespace-nowrap">
+                    {note.title || "title"}
                   </div>
-                ))}
-                {
-                  notes &&
-                notes.length === 0&&
-                (<div className="w-full text-center text-gray-500 my-2">
-                  Create new notes..
-                </div>)
-                }
+                  <div className="overflow-x-clip overflow-ellipsis overflow-hidden whitespace-nowrap">
+                    {note.description}
+                  </div>
+                </motion.div>
+              ))
+            ) : (
+              <div className="w-full text-center text-gray-500 my-2">
+                Create new notes..
+              </div>
+            )}
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 
