@@ -10,6 +10,7 @@ import axios from "axios";
 import CreatedTaskRow from "./ProjectComponents/TabularComponents/CreatedTaskRow";
 import { PieChart, pieArcLabelClasses } from "@mui/x-charts/PieChart";
 import ComparisonChart from "./ProjectComponents/ComparisonChart";
+import { motion } from "framer-motion";
 const Project = (props) => {
   const isUpdate = props.isUpdate;
   const doUpdate = props.doUpdate;
@@ -156,7 +157,7 @@ const Project = (props) => {
   useEffect(() => {
     fetchProject();
     return () => {};
-  }, [projectId, isUpdate ]);
+  }, [projectId, isUpdate]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -191,21 +192,41 @@ const Project = (props) => {
       <div className="flex xs:flex-wrap gap-4 relative justify-center w-full mx-[2%] mt-4 ">
         <div className="flex flex-wrap items-center w-fit flex-col gap-4">
           <div className="flex flex-col gap-2 justify-center items-center">
-            <div className="w-fit bg-[#fcf8ff] rounded-xl">
+            <motion.div
+              initial={{ translateY: -100, opacity: 0 }}
+              animate={{ translateY: 0, opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="w-fit bg-[#fcf8ff] rounded-xl"
+            >
               {props.user && props.user.data && projectDetails.data && (
-                <p className="text-3xl font-lato font-bold max-w-[260px]  italic-text px-5 overflow-ellipsis  overflow-hidden whitespace-nowrap">{`${projectDetails.data.data[0].projectName}`}</p>
+                <p className="text-3xl font-lato font-bold max-w-[260px] italic-text px-5 overflow-ellipsis overflow-hidden whitespace-nowrap">
+                  {`${projectDetails.data.data[0].projectName}`}
+                </p>
               )}
-            </div>
-            <div>
+            </motion.div>
+            <motion.div
+              initial={{ translateY: -100, opacity: 0 }}
+              animate={{ translateY: 0, opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+            >
               <AddTaskForm
                 user={props.user}
                 projectDetails={projectDetails}
                 userDetails={userDetails}
               />
-            </div>
+            </motion.div>
           </div>
-          <div className="flex flex-col justify-center gap-4">
-            <ComparisonChart realVsPredicted={realVsPredicted} isUpdate={isUpdate}/>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col justify-center gap-4"
+          >
+            <ComparisonChart
+              realVsPredicted={realVsPredicted}
+              isUpdate={isUpdate}
+            />
             <div className="flex flex-col  w-full p-3 rounded-xl bg-[#fcf8ff] items-center justify-center">
               <div className="">
                 {props.user && props.user.data && projectDetails.data && (
@@ -262,7 +283,7 @@ const Project = (props) => {
                 ></PieChart>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
         <div className="flex flex-col w-full items-center gap-4 h-fit rounded-xl justify-center ">
           <div className="flex w-full flex-wrap gap-x-2 items-center justify-center ">
