@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 const Footer = () => {
   return (
     <motion.div
+    id="about"
       className="from-violet-600 to-purple-500 pt-12  bg-gradient-to-b text-white p-8 w-full flex flex-wrap justify-evenly items-start gap-6"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}

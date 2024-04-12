@@ -1,6 +1,6 @@
 import "./App.css";
-import React, { useState } from "react";
-import { Routes, Route, NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Routes, Route, NavLink, useNavigate, useLocation } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 import Sock from "./Sock";
@@ -21,7 +21,7 @@ import EditProfile from "./components/GeneralPurposeComponents/EditProfile";
 import Notification from "./components/GeneralPurposeComponents/Notification";
 import NavbarProfile from "./components/GeneralPurposeComponents/NavbarProfile";
 import ActionButton from "./components/GeneralPurposeComponents/ActionButton";
-import About from "./components/About/About"
+import About from "./components/About/About";
 
 import io from "socket.io-client";
 const socket = io("https://collabo-hub-ten.vercel.app/");
@@ -36,17 +36,36 @@ function App() {
   const [chat, setChatSection] = useState();
   const [isUpdate, doUpdate] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [isDisplay,setIsDisplay] = useState(false);
+  const [isDisplay, setIsDisplay] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    // console.log(location)
+    if (location.hash === "#about")
+      handleSmoothScroll("about")
+  }, [location]) 
+
   setTimeout(() => {
-    setIntroEnded(true)
-    return () => setEditProfile(true)
-  }, 700)
+    setIntroEnded(true);
+    return () => setEditProfile(true);
+  }, 700);
+
+  const handleSmoothScroll = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start", 
+      });
+    }
+  };
 
   return (
     <div>
       <Intro />
       {isIntroEnded && (
-        <div className=" flex   bg-purple-100  flex-col items-center">
+        <div className=" flex smooth-scroll   bg-purple-100  flex-col items-center">
           <Toaster
             position="top-center"
             reverseOrder={false}
@@ -65,15 +84,15 @@ function App() {
             setUser={setUser}
           />
           <div className="absolute top-0 left-0 z-40 transition-all duration-1000">
-            {user && (
-              <ActionButton
-                updateStatus={updateStatus}
-                isOpen={isOpen}
-                setIsOpen={setIsOpen}
-                user={user}
-                className=" transition-all duration-1000 text-white"
-              />
-            )}
+            (
+            <ActionButton
+              updateStatus={updateStatus}
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+              user={user}
+              className=" transition-all duration-1000 text-white"
+            />
+            )
           </div>
           <div className=" z-40 select-none flex justify-center bg-[#fcf8ff] bg-opacity-95  shadow-purple-400 border border-double border-purple-400  items-center sticky   p-3  w-[98%] rounded-2xl  mt-3">
             <navbar className="flex  items-center justify-center  h-[4vh] xs:max-h-[3vh] w-full">
@@ -107,7 +126,29 @@ function App() {
               </div>
 
               <div className="flex-grow  "></div>
-              <div className="flex items-center ">
+              <div className="flex items-center gap-2 font-bold font-poppins  ">
+                <a
+                  className={
+                    "text-base sx:hidden  font-lato mx-2 cursor-pointer hover:scale-[1.05] transition-all duration-300  "
+                  }
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (location.pathname !== "/")
+                      navigate("/#about");
+                    handleSmoothScroll("about");
+                  }}
+                  href="#about"
+                >
+                  About
+                </a>
+                <NavLink
+                  className={
+                    "text-base smooth-scroll sx:hidden  font-lato mx-2 cursor-pointer hover:scale-[1.05] transition-all duration-300  "
+                  }
+                  to="/faq"
+                >
+                  FAQ's
+                </NavLink>
                 <div className="hover:scale-105 cursor-pointer transition-all duration-300">
                   {user && (
                     <Notification
@@ -116,7 +157,7 @@ function App() {
                     />
                   )}
                 </div>
-                <div className="flex gap-3 items-center ">
+                <div className="flex items-center ">
                   {user && user.data ? (
                     <div className=" max-w-14 px-2 ">
                       <NavbarProfile
@@ -158,14 +199,27 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route
               path="/Login"
-              element={<Login user={user} socket={socket} setUser={setUser} isDisplay={isDisplay} setIsDisplay={setIsDisplay}/>}
+              element={
+                <Login
+                  user={user}
+                  socket={socket}
+                  setUser={setUser}
+                  isDisplay={isDisplay}
+                  setIsDisplay={setIsDisplay}
+                />
+              }
             />
             <Route
               path="/dashboard/:username"
               element={
                 <div className="flex w-full">
                   <Dashboard updateStatus={updateStatus} user={user} />
-                  <HomeDashBoard isUpdate={isUpdate} user={user} isDisplay={isDisplay} setIsDisplay={setIsDisplay}/>
+                  <HomeDashBoard
+                    isUpdate={isUpdate}
+                    user={user}
+                    isDisplay={isDisplay}
+                    setIsDisplay={setIsDisplay}
+                  />
                 </div>
               }
             />
@@ -230,13 +284,7 @@ function App() {
                 </div>
               }
             />
-            <Route
-              exact
-              path={`/about`}
-              element={
-                <About/>
-              }
-            />
+            <Route exact path={`/faq`} element={<About />} />
           </Routes>
         </div>
       )}
