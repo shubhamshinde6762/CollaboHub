@@ -80,7 +80,7 @@ let FaqData = [
         answer:
           "CollaboHub offers a wide range of features, including task tracking, team collaboration, Gantt charts, time tracking, document management, encrypted chats, daily work schedules, and progress bars. These features are designed to streamline project workflows and boost team productivity.",
       },
-      {
+      { 
         question:
           "Is CollaboHub customizable to suit my specific project management needs?",
         answer:
