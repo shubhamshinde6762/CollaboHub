@@ -33,6 +33,7 @@
     "react-router-dom": "^6.21.1",
     "react-scripts": "5.0.1",
     "react-slick": "^0.30.2",
+    "react-spinners": "^0.13.8",
     "react-typed": "^2.0.12",
     "slick-carousel": "^1.8.1",
     "socket.io-client": "^4.7.4",

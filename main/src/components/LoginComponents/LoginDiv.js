@@ -9,31 +9,30 @@ import { CiLogin } from "react-icons/ci";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ReactTyped } from "react-typed";
+import Loader from "../Loader";
 
-const LoginDiv = ({ setUser, setLogin, socket }) => {
+const LoginDiv = ({ setUser, setLogin, socket, isDisplay, setIsDisplay }) => {
   const [message, setMessage] = useState("");
-
+  const [showPassword, setShowPassWord] = useState(false);
   const navigate = useNavigate();
 
   const fetchData = async () => {
+    setIsDisplay(true);
     try {
       const response = await axios.post(
         "https://collabo-hub-ten.vercel.app/api/v1/login",
         formdata
       );
 
-      // Check if the response status is successful (e.g., 200)
       if (response.status === 200) {
         localStorage.setItem("token", response.data.data.token);
         setUser(response.data);
-        // console.log(response.data);
         socket.emit("login", {
           userId: response.data.data._id,
           socketId: socket.id,
         });
         navigate(`/dashboard/${response.data.data.username}`);
       } else {
-        // Handle non-successful status codes
         setMessage("*Internal Error");
         setUser("");
       }
@@ -46,12 +45,13 @@ const LoginDiv = ({ setUser, setLogin, socket }) => {
         else if (response.data.error === "401-PASSWORD")
           setMessage("*Password is Incorrect");
       } else setMessage("*Internal Error");
+    } finally {
+      setIsDisplay(false);
     }
   };
 
   const loginHandler = async (event) => {
     event.preventDefault();
-    //console.log(formdata);
     if (formdata["identity"] === "" || formdata["password"] === "") {
       setMessage("Fill all Details...");
       return;
@@ -71,7 +71,6 @@ const LoginDiv = ({ setUser, setLogin, socket }) => {
     setShowPassWord(!showPassword);
   };
 
-  const [showPassword, setShowPassWord] = useState(false);
   const [formdata, setFormdata] = useState({
     identity: "",
     password: "",
@@ -79,7 +78,7 @@ const LoginDiv = ({ setUser, setLogin, socket }) => {
   });
 
   const changeHandler = (event) => {
-    const { value, id, type, checked, name } = event.target;
+    const { value, type, checked, name } = event.target;
     setFormdata((state) => {
       return {
         ...state,
@@ -87,7 +86,6 @@ const LoginDiv = ({ setUser, setLogin, socket }) => {
       };
     });
     setMessage("");
-    console.log(formdata);
   };
 
   const validateData = () => {
@@ -96,7 +94,7 @@ const LoginDiv = ({ setUser, setLogin, socket }) => {
         formdata.password[0] === " " ||
         formdata.password.split(" ").length > 1
       )
-        setMessage("*Password should not contains Spaces");
+        setMessage("*Password should not contain spaces");
   };
 
   useEffect(() => {
@@ -105,9 +103,8 @@ const LoginDiv = ({ setUser, setLogin, socket }) => {
 
   return (
     <div className="flex from-amber-500 to-orange-500 bg-gradient-to-b items-center justify-center w-full h-full select-none cursor-default">
-      {/* Image Section */}
-
-      <div className=" flex w-full from-amber-500 to-orange-500 bg-gradient-to-b  gap-y-4 justify-center h-full items-center flex-wrap">
+      <Loader isDisplay={isDisplay} />
+      <div className="flex w-full from-amber-500 to-orange-500 bg-gradient-to-b gap-y-4 justify-center h-full items-center flex-wrap">
         <div className="text-white px-4 font-bold flex-grow items-center justify-center from-indigo-500 to-purple-500 bg-gradient-to-br h-full group flex flex-col transition-all duration-200 ">
           <div className="flex flex-col">
             <p className="text-5xl xs:text-4xl font-roboto-slab leading-relaxed">
@@ -140,14 +137,17 @@ const LoginDiv = ({ setUser, setLogin, socket }) => {
           </div>
         </div>
 
-        {/* <div className='px-10'> */}
         <div className=" text-white bg-amber-500 border-amber-400 border-4 rounded-xl py-4 max-w-[400px]  w-full min-w-[30%] p-2 group flex flex-col items-center    transition-all duration-200 ">
           <div className="text-5xl xs:text-3xl font-poppins  text-white font-bold group-hover:scale-110  transitiom-all duration-1000 text-bold text-center">
             Login
           </div>
 
           <div className="flex flex-col  items-center mt-9 w-full h-full">
-            <form className="flex h-full flex-col items-center justify-center w-full space-y-3">
+            <form
+              className={`flex h-full flex-col items-center justify-center w-full space-y-3 ${
+                isDisplay ? "hidden" : ""
+              }`}
+            >
               <label className="w-full px-10">
                 <p className="py-1 text-xl  font-poppins">
                   Email Address/Username
@@ -215,7 +215,6 @@ const LoginDiv = ({ setUser, setLogin, socket }) => {
             </form>
           </div>
         </div>
-        {/* </div> */}
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import LoginDiv from "./LoginComponents/LoginDiv";
 import SignUp from "./LoginComponents/SignUp";
 import { useNavigate } from "react-router-dom";
 
-const Login = ({ setUser, user, socket }) => {
+const Login = ({ setUser, user, socket ,isDisplay,setIsDisplay}) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (user) {
@@ -17,9 +17,9 @@ const Login = ({ setUser, user, socket }) => {
       <container className="w-full h-full">
         {/* Inner Div */}
         {isLogin ? (
-          <LoginDiv setUser={setUser} socket={socket} setLogin={setLogin} />
+          <LoginDiv setUser={setUser} socket={socket} setLogin={setLogin} isDisplay={isDisplay} setIsDisplay={setIsDisplay}/>
         ) : (
-          <SignUp setUser={setUser} socket={socket} setLogin={setLogin} />
+          <SignUp setUser={setUser} socket={socket} setLogin={setLogin} isDisplay={isDisplay} setIsDisplay={setIsDisplay}/>
         )}
       </container>
     </div>

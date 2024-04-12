@@ -21,6 +21,7 @@ import EditProfile from "./components/GeneralPurposeComponents/EditProfile";
 import Notification from "./components/GeneralPurposeComponents/Notification";
 import NavbarProfile from "./components/GeneralPurposeComponents/NavbarProfile";
 import ActionButton from "./components/GeneralPurposeComponents/ActionButton";
+import About from "./components/About/About"
 
 import io from "socket.io-client";
 const socket = io("https://collabo-hub-ten.vercel.app/");
@@ -35,14 +36,14 @@ function App() {
   const [chat, setChatSection] = useState();
   const [isUpdate, doUpdate] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
+  const [isDisplay,setIsDisplay] = useState(false);
   setTimeout(() => {
     setIntroEnded(true)
     return () => setEditProfile(true)
   }, 700)
 
   return (
-    <div className=" select-none">
+    <div>
       <Intro />
       {isIntroEnded && (
         <div className=" flex   bg-purple-100  flex-col items-center">
@@ -74,7 +75,7 @@ function App() {
               />
             )}
           </div>
-          <div className=" z-40  select-none flex justify-center bg-[#fcf8ff] bg-opacity-95  shadow-purple-400 border border-double border-purple-400  items-center sticky   p-3  w-[98%] rounded-2xl  mt-3">
+          <div className=" z-40 select-none flex justify-center bg-[#fcf8ff] bg-opacity-95  shadow-purple-400 border border-double border-purple-400  items-center sticky   p-3  w-[98%] rounded-2xl  mt-3">
             <navbar className="flex  items-center justify-center  h-[4vh] xs:max-h-[3vh] w-full">
               <div className="flex justify-center items-center gap-x-2">
                 {user && (
@@ -157,14 +158,14 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route
               path="/Login"
-              element={<Login user={user} socket={socket} setUser={setUser} />}
+              element={<Login user={user} socket={socket} setUser={setUser} isDisplay={isDisplay} setIsDisplay={setIsDisplay}/>}
             />
             <Route
               path="/dashboard/:username"
               element={
                 <div className="flex w-full">
                   <Dashboard updateStatus={updateStatus} user={user} />
-                  <HomeDashBoard isUpdate={isUpdate} user={user} />
+                  <HomeDashBoard isUpdate={isUpdate} user={user} isDisplay={isDisplay} setIsDisplay={setIsDisplay}/>
                 </div>
               }
             />
@@ -190,6 +191,8 @@ function App() {
                     user={user}
                     isUpdate={isUpdate}
                     doUpdate={doUpdate}
+                    isDisplay={isDisplay}
+                    setIsDisplay={setIsDisplay}
                     className=""
                   />
                 </div>
@@ -225,6 +228,13 @@ function App() {
                   <Dashboard className="min-w-[30%]" user={user} />
                   <Project className="" user={user} />
                 </div>
+              }
+            />
+            <Route
+              exact
+              path={`/about`}
+              element={
+                <About/>
               }
             />
           </Routes>

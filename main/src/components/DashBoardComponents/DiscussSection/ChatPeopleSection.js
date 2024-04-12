@@ -3,7 +3,6 @@ import People from "./People";
 import SearchPeople from "./SearchPeople";
 import { IoSearch } from "react-icons/io5";
 import { IoMdAdd } from "react-icons/io";
-import axios from "axios";
 import CreateGroupContacts from "./CreateGroupContacts";
 
 const ChatPeopleSection = ({
@@ -11,6 +10,7 @@ const ChatPeopleSection = ({
   newMessage,
   setChatSection,
   needToUpdateChat,
+  setIsLoading
 }) => {
   const [isSearch, setSearch] = useState(false);
   const [isCreateGroup, setCreateGroup] = useState(false);
@@ -56,6 +56,7 @@ const ChatPeopleSection = ({
                 needToUpdateChat={needToUpdateChat}
                 chats={chats}
                 setChats={setChats}
+                setIsLoading={setIsLoading}
               />
             ) : (
               <SearchPeople
@@ -65,6 +66,8 @@ const ChatPeopleSection = ({
                 needToUpdateChat={needToUpdateChat}
                 chats={chats}
                 setChats={setChats}
+                setIsLoading={setIsLoading}
+
               />
             )}
           </div>
