@@ -21,7 +21,7 @@ const Message = ({ messageText, user }) => {
     <div>
       <div className="flex justify-start">
         {user && user.data._id !== messageText.sender._id && (
-          <div className="w-fit relative max-w-[50%] flex items-center">
+          <div className="w-fit mt-4 relative max-w-[50%] flex items-center">
             <img className="w-12" src={messageText.sender.profilePhoto} />
             {messageText.type === "textMessage" && (
               <p className="shadow px-2 bg-slate-50 text-lg  rounded-r-full rounded-t-full">
