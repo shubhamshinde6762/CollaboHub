@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.smooth-scroll {
+  scroll-behavior: smooth;
+}
+
 @media (min-width: 990px) {
   .resolution {
     grid-template-columns: repeat(1, minmax(0, 1fr));

@@ -9,6 +9,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { GoProjectSymlink } from "react-icons/go";
 import { IoIosArrowDropdown } from "react-icons/io";
 import { IoIosArrowDropup } from "react-icons/io";
+import { FcAbout } from "react-icons/fc";
+import { FaQuestion } from "react-icons/fa";
 
 const ActionButton = ({ user, updateStatus, isOpen, setIsOpen }) => {
   const [project, refreshProject] = useState({});
@@ -53,6 +55,7 @@ const ActionButton = ({ user, updateStatus, isOpen, setIsOpen }) => {
 
   const navHome = () => {
     navigate(`/dashboard/${user.data.username}`);
+    setIsOpen(false);
     return () => {};
   };
 
@@ -119,6 +122,7 @@ const ActionButton = ({ user, updateStatus, isOpen, setIsOpen }) => {
       if (response.status === 200) {
         setShowInput(false);
         updateProjects();
+        setIsOpen(false);
       }
     } catch (err) {
       console.log(err);
@@ -140,23 +144,24 @@ const ActionButton = ({ user, updateStatus, isOpen, setIsOpen }) => {
     };
   }, [dropdownRef]);
 
-  return ( (
-      <div
-        className={`${
-          
-          isOpen ? "fixed z-50 top-0 left-0 bg-opacity-50 bg-black  w-screen h-screen" : "" + " sx:-z-50"
-        }`}
-      >
-        <div>
-          <div
-            className={` z-50 top-20 my-4 left-4 opacity-100  transition-all duration-300 rounded-3xl  shadow -translate-x-[70vw] flex flex-col absolute items-center ${
-              isOpen ? "translate-x-[70vwvw]" : ""
-            }`}
-            ref={dropdownRef}
-          >
-            <div className="  z-50 transition-all duration-300 flex flex-col ">
+  return (
+    <div
+      className={`${
+        isOpen
+          ? "fixed z-50 top-0 left-0 bg-opacity-50 bg-black  w-screen h-screen"
+          : "" + " sx:-z-50"
+      }`}
+    >
+      <div>
+        <div
+          className={` z-50 top-20 my-0 left-4 opacity-100  transition-all duration-300 rounded-3xl  shadow -translate-x-[70vw] flex flex-col absolute items-center ${
+            isOpen ? "translate-x-[70vwvw]" : ""
+          }`}
+          ref={dropdownRef}
+        >
+          <div className="  z-50 transition-all duration-300 flex flex-col ">
+            {user && (
               <div className=" transition-all rounded-xl bg-[#fcf8ff] duration-300">
-                
                 <div
                   onClick={navHome}
                   className={`flex rounded-xl font-barlow  w-full px-4 font-bold items-center text-center hover:scale-105 transition-all duration-200 cursor-pointer mx-1 gap-3  py-2 text-black ${
@@ -170,7 +175,10 @@ const ActionButton = ({ user, updateStatus, isOpen, setIsOpen }) => {
                 </div>
                 <NavLink
                   to={`/dashboard/discuss`}
-                  onClick={() => handleClick("discussion")}
+                  onClick={() => {
+                    handleClick("discussion");
+                    setIsOpen(false);
+                  }}
                   className={`flex rounded-xl font-barlow  w-full px-4 font-bold items-center text-center hover:scale-105 transition-all duration-200 cursor-pointer mx-1 gap-3  py-2 text-black ${
                     selectId === "discussion"
                       ? selectedProjectClass
@@ -182,7 +190,10 @@ const ActionButton = ({ user, updateStatus, isOpen, setIsOpen }) => {
                 </NavLink>
                 <NavLink
                   to={"/dashboard/calender"}
-                  onClick={() => handleClick("Calender")}
+                  onClick={() => {
+                    handleClick("Calender");
+                    setIsOpen(false);
+                  }}
                   className={`flex rounded-xl font-barlow  w-full px-4 font-bold items-center text-center hover:scale-105 transition-all duration-200 cursor-pointer mx-1 gap-3   py-2 text-black ${
                     selectId === "Calender"
                       ? selectedProjectClass
@@ -233,8 +244,38 @@ const ActionButton = ({ user, updateStatus, isOpen, setIsOpen }) => {
                   </form>
                 )}
               </div>
-
-              <div className="w-full font-barlow mt-4  max-h-[59vh] relative  bg-[#fcf8ff] rounded-2xl">
+            )}
+            <div className=" transition-all rounded-xl mt-2 bg-[#fcf8ff] duration-300">
+              {/* <NavLink
+                to={`#about`}
+                onClick={() => {
+                  handleClick("About");
+                  setIsOpen(false);
+                }}
+                className={`flex rounded-xl font-barlow  w-full px-4 font-bold items-center text-center hover:scale-105 transition-all duration-200 cursor-pointer mx-1 gap-3  py-2 text-black ${
+                  selectId === "About" ? selectedProjectClass : "hover:bg-white"
+                }`}
+              >
+                <FcAbout />
+                About
+              </NavLink> */}
+              <NavLink
+                to={"/faq"}
+                onClick={() => {
+                  handleClick("faq");
+                  setIsOpen(false);
+                }}
+                className={`flex rounded-xl font-barlow  w-full px-4 font-bold items-center text-center hover:scale-105 transition-all duration-200 cursor-pointer mx-1 gap-3   py-2 text-black ${
+                  selectId === "faq" ? selectedProjectClass : "hover:bg-white"
+                }`}
+              >
+                {" "}
+                <FaQuestion />
+                FAQ
+              </NavLink>
+            </div>
+            {user && (
+              <div className="w-full font-barlow mt-2  max-h-[59vh] relative  bg-[#fcf8ff] rounded-2xl">
                 <div
                   onClick={toggleShowProjects}
                   className="text-black flex justify-center gap-2 cursor-pointer hover:bg-slate-200 px-2 py-2 rounded-xl  items-center w-full text-center  text-lg "
@@ -253,7 +294,10 @@ const ActionButton = ({ user, updateStatus, isOpen, setIsOpen }) => {
                           <NavLink
                             to={`/dashboard/project/${ele._id}`}
                             key={ele._id}
-                            onClick={() => handleClick(ele._id)}
+                            onClick={() => {
+                              handleClick(ele._id);
+                              setIsOpen(false);
+                            }}
                             className={`flex  items-center px-4 font-bold text-gray-700 transition-all duration-200 cursor-pointer rounded-md mx-1 gap-3 py-2 ${
                               selectId === ele._id
                                 ? selectedProjectClass
@@ -272,11 +316,11 @@ const ActionButton = ({ user, updateStatus, isOpen, setIsOpen }) => {
                   )}
                 </div>{" "}
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
-    )
+    </div>
   );
 };
 

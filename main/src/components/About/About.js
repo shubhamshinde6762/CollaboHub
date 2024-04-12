@@ -40,14 +40,14 @@ let FaqData = [
     name: "General Questions",
     questions: [
       {
-        question: "What is [Your ERP Platform]?",
+        question: "What is CollaboHub?",
         answer:
-          "[Your ERP Platform] is a comprehensive project management ERP solution designed to streamline project workflows, enhance collaboration, and optimize resource allocation.",
+          "CollaboHub is a comprehensive project management platform designed to streamline project workflows, enhance collaboration, and optimize resource allocation. It includes features such as task tracking, team collaboration, Gantt charts, time tracking, document management, encrypted chats, and daily work schedules.",
       },
       {
-        question: "Who can benefit from using [Your ERP Platform]?",
+        question: "Who can benefit from using CollaboHub?",
         answer:
-          "[Your ERP Platform] is ideal for businesses of all sizes, including startups, SMEs, and enterprises, as well as freelancers and individual project managers.",
+          "CollaboHub is ideal for businesses of all sizes, including startups, SMEs, and enterprises, as well as freelancers and individual project managers. It caters to teams who require efficient project management tools and secure communication channels.",
       },
     ],
   },
@@ -57,29 +57,34 @@ let FaqData = [
       {
         question: "How do I create an account?",
         answer:
-          "To create an account, simply click on the 'Sign Up' button on the homepage and follow the prompts to complete the registration process.",
+          "To create an account, simply visit the CollaboHub website and click on the 'Sign Up' button. Follow the prompts to complete the registration process.",
       },
       {
-        question: "What payment methods do you accept?",
+        question: "Is CollaboHub free to use?",
         answer:
-          "We accept major credit cards (Visa, Mastercard, American Express) and PayPal for subscription payments.",
+          "Yes, CollaboHub offers a free plan with essential project management features. You can sign up for free and start managing your projects immediately.",
       },
+      // {
+      //   question: "What payment methods do you accept for premium plans?",
+      //   answer:
+      //     "For premium plans, we accept major credit cards (Visa, Mastercard, American Express) and PayPal for subscription payments. You can choose a plan that suits your team's needs and budget.",
+      // },
     ],
   },
+
   {
     name: "Features and Functionality",
     questions: [
       {
-        question:
-          "What project management features does [Your ERP Platform] offer?",
+        question: "What project management features does CollaboHub offer?",
         answer:
-          "[Your ERP Platform] offers a wide range of features, including task tracking, team collaboration, Gantt charts, time tracking, document management, and more.",
+          "CollaboHub offers a wide range of features, including task tracking, team collaboration, Gantt charts, time tracking, document management, encrypted chats, daily work schedules, and progress bars. These features are designed to streamline project workflows and boost team productivity.",
       },
       {
         question:
-          "Is [Your ERP Platform] customizable to suit my specific project management needs?",
+          "Is CollaboHub customizable to suit my specific project management needs?",
         answer:
-          "Yes, [Your ERP Platform] is highly customizable, allowing you to tailor workflows, project templates, and permissions to fit your unique requirements.",
+          "Yes, CollaboHub is highly customizable, allowing you to tailor workflows, project templates, and permissions to fit your unique requirements. You can configure the platform according to your team's workflow and project management methodologies.",
       },
     ],
   },
@@ -89,12 +94,12 @@ let FaqData = [
       {
         question: "How do you ensure the security of my data?",
         answer:
-          "We employ industry-standard security protocols and encryption methods to safeguard your data. Additionally, our platform is regularly audited for security compliance.",
+          "We employ industry-standard security protocols and encryption methods to safeguard your data on CollaboHub. Additionally, our platform undergoes regular security audits to ensure compliance with data protection standards.",
       },
       {
         question: "What is your data privacy policy?",
         answer:
-          "We are committed to protecting your privacy. Please refer to our Privacy Policy for detailed information on how we collect, use, and protect your personal data.",
+          "We are committed to protecting your privacy on CollaboHub. Please refer to our Privacy Policy for detailed information on how we collect, use, and protect your personal data. We adhere to strict privacy guidelines to safeguard your sensitive information.",
       },
     ],
   },
@@ -104,13 +109,13 @@ let FaqData = [
       {
         question: "How can I contact customer support?",
         answer:
-          "You can reach our customer support team via email at support@example.com or through the live chat feature available on our website.",
+          "You can reach our customer support team via email at support@collabohub.com or through the live chat feature available on the CollaboHub website. Our support team is available to assist you with any inquiries or issues you may have.",
       },
       {
         question:
           "Do you offer training or onboarding assistance for new users?",
         answer:
-          "Yes, we provide comprehensive training resources, including tutorials, user guides, and webinars, to help onboard new users and maximize their use of the platform.",
+          "Yes, we provide comprehensive training resources, including tutorials, user guides, and webinars, to help onboard new users and maximize their use of CollaboHub. Our goal is to ensure that you and your team are equipped with the knowledge to effectively utilize the platform.",
       },
     ],
   },
@@ -119,31 +124,25 @@ let FaqData = [
     questions: [
       {
         question:
-          "What features are included in the free version of [Your ERP Platform]?",
+          "What features are included in the free version of CollaboHub?",
         answer:
-          "The free version of [Your ERP Platform] includes essential project management features such as task tracking, team collaboration, basic reporting, and document management.",
+          "The free version of CollaboHub includes essential project management features such as task tracking, team collaboration, basic reporting, document management, encrypted chats, daily work schedules, and progress bars. It allows unlimited users and projects, enabling teams to collaborate effectively without restrictions.",
       },
       {
-        question:
-          "Is the free version limited in terms of the number of users or projects?",
+        question: "How long can I use the free version of CollaboHub?",
         answer:
-          "No, the free version allows unlimited users and projects, enabling teams of any size to collaborate effectively without restrictions.",
-      },
-      {
-        question: "How long can I use the free version of [Your ERP Platform]?",
-        answer:
-          "There is no time limit on using the free version of [Your ERP Platform]. It is free forever, with the option to upgrade to a paid plan for access to advanced features and support.",
+          "There is no time limit on using the free version of CollaboHub. It is free forever, with the option to upgrade to a paid plan for access to advanced features and premium support. You can continue to use the free version as long as you like.",
       },
       {
         question: "What are the benefits of upgrading to a paid plan?",
         answer:
-          "Upgrading to a paid plan unlocks additional features such as advanced reporting, priority support, integrations with third-party tools, and enhanced customization options.",
+          "Upgrading to a paid plan unlocks additional features such as advanced reporting, priority support, integrations with third-party tools, enhanced customization options, and more. Paid plans are tailored to meet the needs of growing teams and provide enhanced functionality to optimize project management workflows.",
       },
       {
         question:
           "Do I need to provide payment information to use the free version?",
         answer:
-          "No, payment information is not required to sign up for the free version of [Your ERP Platform]. Simply create an account and start using the platform immediately.",
+          "No, payment information is not required to sign up for the free version of CollaboHub. Simply create an account and start using the platform immediately. We believe in providing accessible project management tools for teams of all sizes, without any upfront payment obligations.",
       },
     ],
   },
