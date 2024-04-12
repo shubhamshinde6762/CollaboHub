@@ -53,6 +53,10 @@ const LoginDiv = ({ setUser, setLogin, socket }) => {
     event.preventDefault();
     //console.log(formdata);
     if (formdata["identity"] === "" || formdata["password"] === "") {
+      setMessage("Fill all Details...");
+      return;
+    } else if (formdata["password"].length < 8) {
+      setMessage("Password should contains 8 characters...");
       return;
     }
 
@@ -109,15 +113,13 @@ const LoginDiv = ({ setUser, setLogin, socket }) => {
             <p className="text-5xl xs:text-4xl font-roboto-slab leading-relaxed">
               Welcome to <br />{" "}
               <span className="text-7xl transition-all xs:text-5xl duration-300 font-poppins text-lime-200 group-hover:text-amber-300">
-              <ReactTyped
-              strings={[
-                "CollaboHub!"
-              ]}
-              showCursor={true}
-              typeSpeed={300}
-              backSpeed={50}
-              loop
-            />
+                <ReactTyped
+                  strings={["CollaboHub!"]}
+                  showCursor={true}
+                  typeSpeed={300}
+                  backSpeed={50}
+                  loop
+                />
               </span>
             </p>
             <br />
@@ -148,7 +150,8 @@ const LoginDiv = ({ setUser, setLogin, socket }) => {
             <form className="flex h-full flex-col items-center justify-center w-full space-y-3">
               <label className="w-full px-10">
                 <p className="py-1 text-xl  font-poppins">
-                  Email Address/Username<span className="text-orange-700 text-3xl">*</span>
+                  Email Address/Username
+                  <span className="text-orange-700 text-3xl">*</span>
                 </p>
                 <input
                   onChange={changeHandler}
@@ -199,7 +202,7 @@ const LoginDiv = ({ setUser, setLogin, socket }) => {
                     <p>Remember Me</p>
                   </div>
                 </label>
-                <span className="italic-text px-10 text-pink-500">
+                <span className="italic-text px-10 font-bold text-blue-800">
                   {message}
                 </span>
               </div>
