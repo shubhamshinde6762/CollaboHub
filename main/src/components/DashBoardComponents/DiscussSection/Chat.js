@@ -7,7 +7,7 @@ import Message from "./Message";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaArrowUp } from "react-icons/fa";
 
-const Chat = ({ user, chat, newMessage, setChatSection }) => {
+const Chat = ({ user, chat, newMessage, setChatSection,setIsLoading }) => {
   const [textMessage, setTextMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const messagesRef = useRef();
@@ -40,11 +40,13 @@ const Chat = ({ user, chat, newMessage, setChatSection }) => {
 
         if (response && response.data && response.data.messages)
           setMessages(response.data.messages);
+        setIsLoading(false);
       } catch (err) {
         console.error("Error fetching messages:", err);
       }
     };
 
+    setIsLoading(true);
     fetchMessages();
   }, [chat]);
 

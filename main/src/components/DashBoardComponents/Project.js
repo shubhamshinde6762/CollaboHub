@@ -11,6 +11,7 @@ import CreatedTaskRow from "./ProjectComponents/TabularComponents/CreatedTaskRow
 import { PieChart, pieArcLabelClasses } from "@mui/x-charts/PieChart";
 import ComparisonChart from "./ProjectComponents/ComparisonChart";
 import { motion } from "framer-motion";
+import Loader from "../Loader";
 const Project = (props) => {
   const isUpdate = props.isUpdate;
   const doUpdate = props.doUpdate;
@@ -20,7 +21,7 @@ const Project = (props) => {
   const [projectDetails, setProjectDetails] = useState([]);
   const [userDetails, setUserDetails] = useState([]);
   const [owning, setOwningTask] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(false);
   const [realVsPredicted, setRealVsPredicted] = useState({
     allcompleted: [],
     allDue: [],
@@ -153,8 +154,9 @@ const Project = (props) => {
   useEffect(() => {
     fetch();
   }, [userDetails]);
-
+  
   useEffect(() => {
+    setIsLoading(true);
     fetchProject();
     return () => {};
   }, [projectId, isUpdate]);
@@ -172,6 +174,7 @@ const Project = (props) => {
           { userArray }
         );
         setUserDetails(response1);
+        setIsLoading(false);
       } catch (error) {
         console.log("failed");
       }
@@ -189,176 +192,186 @@ const Project = (props) => {
     props.user.data &&
     projectDetails.data &&
     projectDetails.data.data.length && (
-      <div className="flex xs:flex-wrap gap-4 relative justify-center w-full mx-[2%] mt-4 ">
-        <div className="flex flex-wrap items-center w-fit flex-col gap-4">
-          <div className="flex flex-col gap-2 justify-center items-center">
-            <motion.div
-              initial={{ translateY: -100, opacity: 0 }}
-              animate={{ translateY: 0, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              className="w-fit bg-[#fcf8ff] rounded-xl"
-            >
-              {props.user && props.user.data && projectDetails.data && (
-                <p className="text-3xl font-lato font-bold max-w-[260px] italic-text px-5 overflow-ellipsis overflow-hidden whitespace-nowrap">
-                  {`${projectDetails.data.data[0].projectName}`}
-                </p>
-              )}
-            </motion.div>
-            <motion.div
-              initial={{ translateY: -100, opacity: 0 }}
-              animate={{ translateY: 0, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-            >
-              <AddTaskForm
-                user={props.user}
-                projectDetails={projectDetails}
-                userDetails={userDetails}
-              />
-            </motion.div>
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="flex flex-col justify-center gap-4"
-          >
-            <ComparisonChart
-              realVsPredicted={realVsPredicted}
-              isUpdate={isUpdate}
-            />
-            <div className="flex flex-col  w-full p-3 rounded-xl bg-[#fcf8ff] items-center justify-center">
-              <div className="">
-                {props.user && props.user.data && projectDetails.data && (
-                  <p className="text-xl font-lato font-bold max-w-[240px]  italic-text px-5 overflow-ellipsis  overflow-hidden whitespace-nowrap">
-                    Current Statastics
-                  </p>
-                )}
-              </div>
-              <div className="flex font-barlow aspect-video h-[25vh]  max-w-[26vw] xs:max-w-[90vw]  font-bold  right-0  items-center ">
-                <PieChart
-                  className="text-white"
-                  sx={{
-                    [`& .${pieArcLabelClasses.root}`]: {
-                      fill: "white",
-                      fontWeight: "bold",
-                    },
-                  }}
-                  series={[
-                    {
-                      arcLabel: (item) => `${item.value}`,
-                      arcLabelMinAngle: 45,
-                      data: [
-                        {
-                          id: 0,
-                          value: taskCount.toDo,
-                          label: "To Do",
-                          color: "#FF7F0E",
-                        },
-                        {
-                          id: 1,
-                          value: taskCount.completed,
-                          label: "Completed",
-                          color: "#2CA02C",
-                        },
-                        {
-                          id: 2,
-                          value: taskCount.exp,
-                          label: "Expired",
-                          color: "#D62728",
-                        },
-                      ],
-                      innerRadius: 15,
-                      paddingAngle: 1,
-                      cornerRadius: 4,
-                      highlightScope: { faded: "global", highlighted: "item" },
-                      faded: {
-                        innerRadius: 35,
-                        additionalRadius: -20,
-                        color: "gray",
-                      },
-                    },
-                  ]}
-                  margin={{ right: 150 }}
-                ></PieChart>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-        <div className="flex flex-col w-full items-center gap-4 h-fit rounded-xl justify-center ">
-          <div className="flex w-full flex-wrap gap-x-2 items-center justify-center ">
-            <div className="flex-grow">
-              <div className="flex flex-wrap rounded-full w-fit bg-[#fcf8ff] font-bold text-black p-[0.35rem] select-none py-2  ">
-                <div
-                  className={`${
-                    switchUi === "Tabular"
-                      ? "bg-purple-200 text-zinc-950 scale-105"
-                      : ""
-                  } ml-1 rounded-full transition-all duration-300 py-1 xs:text-xs px-3 cursor-pointer flex items-center gap-x-2 font-poppins`}
-                  onClick={async () => setSwitchUi("Tabular")}
+      <div className="w-full">
+        <Loader isDisplay={isLoading} />
+        {!isLoading && (
+          <div className="flex xs:flex-wrap gap-4 relative justify-center w-full mx-[2%] mt-4 ">
+            <div className="flex flex-wrap items-center w-fit flex-col gap-4">
+              <div className="flex flex-col gap-2 justify-center items-center">
+                <motion.div
+                  initial={{ translateY: -100, opacity: 0 }}
+                  animate={{ translateY: 0, opacity: 1 }}
+                  transition={{ delay: 0.2, duration: 0.5 }}
+                  className="w-fit bg-[#fcf8ff] rounded-xl"
                 >
-                  <FaTable />
-                  Assigned
-                </div>
-                <div
-                  className={`${
-                    switchUi === "Piechart"
-                      ? "bg-purple-200 text-zinc-950 scale-105"
-                      : ""
-                  } py-1 transition-all duration-500 cursor-pointer xs:text-xs rounded-full mr-1 px-3 flex items-center gap-x-2 font-poppins`}
-                  onClick={async () => setSwitchUi("Piechart")}
+                  {props.user && props.user.data && projectDetails.data && (
+                    <p className="text-3xl font-lato font-bold max-w-[260px] italic-text px-5 overflow-ellipsis overflow-hidden whitespace-nowrap">
+                      {`${projectDetails.data.data[0].projectName}`}
+                    </p>
+                  )}
+                </motion.div>
+                <motion.div
+                  initial={{ translateY: -100, opacity: 0 }}
+                  animate={{ translateY: 0, opacity: 1 }}
+                  transition={{ delay: 0.2, duration: 0.5 }}
                 >
-                  <GrPieChart className="scale-125" />
-                  Delegated
+                  <AddTaskForm
+                    user={props.user}
+                    projectDetails={projectDetails}
+                    userDetails={userDetails}
+                  />
+                </motion.div>
+              </div>
+
+              <motion.div
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="flex flex-col justify-center gap-4"
+              >
+                <ComparisonChart
+                  realVsPredicted={realVsPredicted}
+                  isUpdate={isUpdate}
+                />
+                <div className="flex flex-col  w-full p-3 rounded-xl bg-[#fcf8ff] items-center justify-center">
+                  <div className="">
+                    {props.user && props.user.data && projectDetails.data && (
+                      <p className="text-xl font-lato font-bold max-w-[240px]  italic-text px-5 overflow-ellipsis  overflow-hidden whitespace-nowrap">
+                        Current Statastics
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex font-barlow aspect-video h-[25vh]  max-w-[26vw] xs:max-w-[90vw]  font-bold  right-0  items-center ">
+                    <PieChart
+                      className="text-white"
+                      sx={{
+                        [`& .${pieArcLabelClasses.root}`]: {
+                          fill: "white",
+                          fontWeight: "bold",
+                        },
+                      }}
+                      series={[
+                        {
+                          arcLabel: (item) => `${item.value}`,
+                          arcLabelMinAngle: 45,
+                          data: [
+                            {
+                              id: 0,
+                              value: taskCount.toDo,
+                              label: "To Do",
+                              color: "#FF7F0E",
+                            },
+                            {
+                              id: 1,
+                              value: taskCount.completed,
+                              label: "Completed",
+                              color: "#2CA02C",
+                            },
+                            {
+                              id: 2,
+                              value: taskCount.exp,
+                              label: "Expired",
+                              color: "#D62728",
+                            },
+                          ],
+                          innerRadius: 15,
+                          paddingAngle: 1,
+                          cornerRadius: 4,
+                          highlightScope: {
+                            faded: "global",
+                            highlighted: "item",
+                          },
+                          faded: {
+                            innerRadius: 35,
+                            additionalRadius: -20,
+                            color: "gray",
+                          },
+                        },
+                      ]}
+                      margin={{ right: 150 }}
+                    ></PieChart>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+            <div className="flex flex-col w-full items-center gap-4 h-fit rounded-xl justify-center ">
+              <div className="flex w-full flex-wrap gap-x-2 items-center justify-center ">
+                <div className="flex-grow">
+                  <div className="flex flex-wrap rounded-full w-fit bg-[#fcf8ff] font-bold text-black p-[0.35rem] select-none py-2  ">
+                    <div
+                      className={`${
+                        switchUi === "Tabular"
+                          ? "bg-purple-200 text-zinc-950 scale-105"
+                          : ""
+                      } ml-1 rounded-full transition-all duration-300 py-1 xs:text-xs px-3 cursor-pointer flex items-center gap-x-2 font-poppins`}
+                      onClick={async () => setSwitchUi("Tabular")}
+                    >
+                      <FaTable />
+                      Assigned
+                    </div>
+                    <div
+                      className={`${
+                        switchUi === "Piechart"
+                          ? "bg-purple-200 text-zinc-950 scale-105"
+                          : ""
+                      } py-1 transition-all duration-500 cursor-pointer xs:text-xs rounded-full mr-1 px-3 flex items-center gap-x-2 font-poppins`}
+                      onClick={async () => setSwitchUi("Piechart")}
+                    >
+                      <GrPieChart className="scale-125" />
+                      Delegated
+                    </div>
+                  </div>
+                </div>
+
+                <div className=" text-white w-fit">
+                  {props.user &&
+                    props.user.data &&
+                    projectDetails.data &&
+                    projectDetails.data.data[0].owners.includes(
+                      props.user.data._id
+                    ) && (
+                      <Invite
+                        user={props.user}
+                        userDetails={userDetails}
+                        projectDetails={projectDetails}
+                      />
+                    )}
+                </div>
+                <div>
+                  {props.user &&
+                    props.user.data &&
+                    projectDetails.data &&
+                    projectDetails.data.data[0].owners.includes(
+                      props.user.data._id
+                    ) && (
+                      <DeleteProject projectId={projectId} user={props.user} />
+                    )}
                 </div>
               </div>
-            </div>
-
-            <div className=" text-white w-fit">
-              {props.user &&
-                props.user.data &&
-                projectDetails.data &&
-                projectDetails.data.data[0].owners.includes(
-                  props.user.data._id
-                ) && (
-                  <Invite
+              <div className="flex-grow w-full flex justify-center items-center ">
+                {switchUi === "Tabular" ? (
+                  <Tabular
+                    projectUpdate={isUpdate}
+                    doUpdate={doUpdate}
+                    socket={socket}
+                    projectId={projectId}
                     user={props.user}
                     userDetails={userDetails}
                     projectDetails={projectDetails}
+                    className="w-full"
+                  />
+                ) : (
+                  <CreatedTaskRow
+                    user={props.user}
+                    userDetails={userDetails}
+                    owning={owning}
+                    className="w-fill"
                   />
                 )}
-            </div>
-            <div>
-              {props.user &&
-                props.user.data &&
-                projectDetails.data &&
-                projectDetails.data.data[0].owners.includes(
-                  props.user.data._id
-                ) && <DeleteProject projectId={projectId} user={props.user} />}
+              </div>
             </div>
           </div>
-          <div className="flex-grow w-full flex justify-center items-center ">
-            {switchUi === "Tabular" ? (
-              <Tabular
-                projectUpdate={isUpdate}
-                doUpdate={doUpdate}
-                socket={socket}
-                projectId={projectId}
-                user={props.user}
-                userDetails={userDetails}
-                projectDetails={projectDetails}
-                className="w-full"
-              />
-            ) : (
-              <CreatedTaskRow
-                user={props.user}
-                userDetails={userDetails}
-                owning={owning}
-                className="w-fill"
-              />
-            )}
-          </div>
-        </div>
+        )}
       </div>
     )
   );

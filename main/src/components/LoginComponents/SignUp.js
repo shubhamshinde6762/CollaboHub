@@ -10,11 +10,12 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import io from "socket.io-client";
 import { ReactTyped } from "react-typed";
-
-const SignUp = ({ setLogin, setUser, socket }) => {
+import Loader from "../Loader";
+const SignUp = ({ setLogin, setUser, socket,isDisplay,setIsDisplay }) => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const fetchData = async () => {
+    setIsDisplay(true);
     try {
       const response = await axios.post(
         "https://collabo-hub-ten.vercel.app/api/v1/signUp",
@@ -24,14 +25,12 @@ const SignUp = ({ setLogin, setUser, socket }) => {
       if (response.status === 200) {
         localStorage.setItem("token", response.data.data.token);
         setUser(response.data);
-        // console.log(response.data);
         socket.emit("login", {
           userId: response.data.data._id,
           socketId: socket.id,
         });
         navigate(`/dashboard/${response.data.data.username}`);
       } else {
-        // Handle non-successful status codes
         setMessage("*Internal Error");
         setUser("");
       }
@@ -45,10 +44,9 @@ const SignUp = ({ setLogin, setUser, socket }) => {
         else if (response.data.error === "400-USERNAME")
           setMessage("*Username not Available");
       } else setMessage("*Internal Error");
+    } finally {
+      setIsDisplay(false);
     }
-
-    // const output = await response.json();
-    //console.log(response)
   };
 
   const loginHandler = async (event) => {
@@ -134,9 +132,8 @@ const SignUp = ({ setLogin, setUser, socket }) => {
   };
 
   return (
-
-
     <div className="flex bg-amber-500 items-center justify-center w-full h-full select-none">
+      <Loader isDisplay={isDisplay}/>
       <div className=" flex w-full gap-4 justify-center h-full items-center flex-wrap">
         <div className=" text-white pt-[12vh] pb-[2vh] bg-amber-500 rounded-xl max-w-[400px] gap-2  w-full min-w-[30%] px-2 group flex flex-col items-center    transition-all duration-200 ">
           <div className="text-5xl xs:text-3xl font-poppins  text-white font-bold group-hover:scale-110  transitiom-all duration-1000 text-bold text-center">

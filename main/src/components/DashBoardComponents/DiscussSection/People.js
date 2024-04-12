@@ -8,6 +8,7 @@ const People = ({
   needToUpdateChat,
   chats,
   setChats,
+  setIsLoading
 }) => {
   // useEffect
 
@@ -75,10 +76,12 @@ const People = ({
         console.log("newData", newData);
 
         setChats(newData);
+        setIsLoading(false);
       } catch (err) {
         console.log(err);
       }
     };
+    setIsLoading(true);
 
     fetch();
   }, [user, needToUpdateChat]);
