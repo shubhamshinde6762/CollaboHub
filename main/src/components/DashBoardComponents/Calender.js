@@ -7,7 +7,7 @@ const localizer = momentLocalizer(moment)
 
 const Calender = () => {
   return (
-    <div className='w-full transition-all duration-200 m-3 bg-[#fcf8ff] p-3 rounded-xl select-none'>
+    <div className='w-full min-h-[80vh] transition-all duration-200 m-3 bg-[#fcf8ff] p-3 rounded-xl select-none'>
         <Calendar 
         localizer={localizer}
         startAccessor="start"

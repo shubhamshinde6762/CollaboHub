@@ -8,6 +8,7 @@ const SearchPeople = ({
   needToUpdateChat,
   chats,
   setChats,
+  setIsLoading
 }) => {
   const [searchText, setSearchText] = useState("");
 
@@ -122,11 +123,12 @@ const SearchPeople = ({
 
         setChats(newData);
         setSearchChats(newData);
+        setIsLoading(false);
       } catch (err) {
         console.log(err);
       }
     };
-
+    setIsLoading(true);
     fetch();
   }, [user, needToUpdateChat]);
 

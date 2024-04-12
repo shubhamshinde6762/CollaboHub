@@ -10,6 +10,7 @@ const ChatPeopleSection = ({
   newMessage,
   setChatSection,
   needToUpdateChat,
+  setIsLoading
 }) => {
   const [isSearch, setSearch] = useState(false);
   const [isCreateGroup, setCreateGroup] = useState(false);
@@ -55,6 +56,7 @@ const ChatPeopleSection = ({
                 needToUpdateChat={needToUpdateChat}
                 chats={chats}
                 setChats={setChats}
+                setIsLoading={setIsLoading}
               />
             ) : (
               <SearchPeople
@@ -64,6 +66,8 @@ const ChatPeopleSection = ({
                 needToUpdateChat={needToUpdateChat}
                 chats={chats}
                 setChats={setChats}
+                setIsLoading={setIsLoading}
+
               />
             )}
           </div>
