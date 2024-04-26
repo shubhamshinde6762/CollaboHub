@@ -11,7 +11,7 @@ import axios from "axios";
 import io from "socket.io-client";
 import { ReactTyped } from "react-typed";
 import Loader from "../Loader";
-const SignUp = ({ setLogin, setUser, socket,isDisplay,setIsDisplay }) => {
+const SignUp = ({ setLogin, setUser, socket, isDisplay, setIsDisplay }) => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const fetchData = async () => {
@@ -60,6 +60,10 @@ const SignUp = ({ setLogin, setUser, socket,isDisplay,setIsDisplay }) => {
       formdata["username"] === ""
     ) {
       setMessage("*Required Feilds");
+      return;
+    }
+
+    if (formdata["password"].length < 8) {
       return;
     }
 
@@ -133,7 +137,7 @@ const SignUp = ({ setLogin, setUser, socket,isDisplay,setIsDisplay }) => {
 
   return (
     <div className="flex bg-amber-500 items-center justify-center w-full h-full select-none">
-      <Loader isDisplay={isDisplay}/>
+      <Loader isDisplay={isDisplay} />
       <div className=" flex w-full gap-4 justify-center h-full items-center flex-wrap">
         <div className=" text-white pt-[12vh] pb-[2vh] bg-amber-500 rounded-xl max-w-[400px] gap-2  w-full min-w-[30%] px-2 group flex flex-col items-center    transition-all duration-200 ">
           <div className="text-5xl xs:text-3xl font-poppins  text-white font-bold group-hover:scale-110  transitiom-all duration-1000 text-bold text-center">

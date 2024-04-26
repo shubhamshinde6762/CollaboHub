@@ -8,17 +8,19 @@ const Dashboard = (props) => {
 
   useEffect(() => {
     try {
-      if (!(props.user&& props.user.data))
-        navigate("/")
-    } catch (error) {
-      
-    }
-  })
+      if (!localStorage.getItem("token")) navigate("/");
+      console.log(props);
+    } catch (error) {}
+  });
 
   return (
     <div className="">
       <div className="relative h-full mt-4 flex overflow-clip">
-        <ActionPanel className="h-full" updateStatus={props.updateStatus} user={props.user} />
+        <ActionPanel
+          className="h-full"
+          updateStatus={props.updateStatus}
+          user={props.user}
+        />
       </div>
     </div>
   );
