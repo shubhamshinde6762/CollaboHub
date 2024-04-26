@@ -6,12 +6,12 @@ import HomeDashBoard from "./DashBoardComponents/HomeDashBoard";
 const Dashboard = (props) => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    try {
-      if (!localStorage.getItem("token")) navigate("/");
-      console.log(props);
-    } catch (error) {}
-  });
+  // useEffect(() => {
+  //   try {
+  //     if (!localStorage.getItem("token")) navigate("/");
+  //     console.log(props);
+  //   } catch (error) {}
+  // }, [props.user]);
 
   return (
     <div className="">
