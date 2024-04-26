@@ -18,28 +18,37 @@ const Sock = ({
       try {
         const token = localStorage.getItem("token");
         console.log(token);
-        const response = await axios.get("https://collabo-hub-ten.vercel.app/api/v1/login", {
-          headers: {
-            Authorization: `${token}`,
-          },
-        });
-        // console.log("app.js", response.data);
-        if (response.data) {
+        const response = await axios.get(
+          "https://collabo-hub-ten.vercel.app/api/v1/login",
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        );
+        console.log("app.js", response.data);
+        if (response.data && response.data.data) {
           setUser(response.data);
           socket.emit("login", {
             userId: response.data.data._id,
             socketId: socket.id,
           });
         } else {
+          localStorage.clear();
           navigate("/");
         }
+        console.log(response)
       } catch (error) {
         console.error("Axios request error:", error);
+        localStorage.clear();
+        navigate("/");
       }
     };
 
     autoLogin();
   }, []);
+
+  
   useEffect(() => {
     try {
       const needToUpdateProject = (data) => {
