@@ -1,6 +1,12 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
-import { Routes, Route, NavLink, useNavigate, useLocation } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  NavLink,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 import Sock from "./Sock";
@@ -42,9 +48,8 @@ function App() {
 
   useEffect(() => {
     // console.log(location)
-    if (location.hash === "#about")
-      handleSmoothScroll("about")
-  }, [location]) 
+    if (location.hash === "#about") handleSmoothScroll("about");
+  }, [location]);
 
   setTimeout(() => {
     setIntroEnded(true);
@@ -56,7 +61,7 @@ function App() {
     if (element) {
       element.scrollIntoView({
         behavior: "smooth",
-        block: "start", 
+        block: "start",
       });
     }
   };
@@ -84,7 +89,6 @@ function App() {
             setUser={setUser}
           />
           <div className="absolute top-0 left-0 z-40 transition-all duration-1000">
-            (
             <ActionButton
               updateStatus={updateStatus}
               isOpen={isOpen}
@@ -92,7 +96,6 @@ function App() {
               user={user}
               className=" transition-all duration-1000 text-white"
             />
-            )
           </div>
           <div className=" z-40 select-none flex justify-center bg-[#fcf8ff] bg-opacity-95  shadow-purple-400 border border-double border-purple-400  items-center sticky   p-3  w-[98%] rounded-2xl  mt-3">
             <navbar className="flex  items-center justify-center  h-[4vh] xs:max-h-[3vh] w-full">
@@ -133,8 +136,7 @@ function App() {
                   }
                   onClick={(e) => {
                     e.preventDefault();
-                    if (location.pathname !== "/")
-                      navigate("/#about");
+                    if (location.pathname !== "/") navigate("/#about");
                     handleSmoothScroll("about");
                   }}
                   href="#about"

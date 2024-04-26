@@ -64,6 +64,10 @@ const HomeDashBoard = ({ user, isUpdate, isDisplay, setIsDisplay }) => {
         if (response && response.data && response.data.data) {
           setProjectDetails(response.data.data);
         }
+        else
+        {
+          setIsLoading(false);
+        }
       } catch (error) {
         console.log("Error fetching project details");
       }
@@ -89,6 +93,10 @@ const HomeDashBoard = ({ user, isUpdate, isDisplay, setIsDisplay }) => {
 
     if (projectDetails.length > 0) {
       updateTaskIdArray();
+    }
+    else
+    {
+      setIsLoading(false);
     }
   }, [projectDetails]);
 
