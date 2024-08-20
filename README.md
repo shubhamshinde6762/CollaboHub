@@ -1,6 +1,6 @@
 # CollaboHub: Revolutionizing Workflow & Project Management 
 
-**CollaboHub** is an innovative ERP web application designed to streamline workflow and elevate collaboration in project management. Developed by [Shubham Shinde](https://www.linkedin.com/in/shubhamshinde/) and [Pawan Kusekar](https://www.linkedin.com/in/pawankusekar/), this platform integrates a suite of powerful features to address the intricate needs of modern teams, ensuring efficiency, security, and real-time collaboration.
+**CollaboHub** is an innovative ERP web application designed to streamline workflow and elevate collaboration in project management. Developed by [Shubham Shinde](https://www.linkedin.com/in/shubhamshinde6762/) and [Pawan Kusekar](https://www.linkedin.com/in/pawan-kusekar-677050265/), this platform integrates a suite of powerful features to address the intricate needs of modern teams, ensuring efficiency, security, and real-time collaboration.
 
 ## 🚀 Key Features
 
